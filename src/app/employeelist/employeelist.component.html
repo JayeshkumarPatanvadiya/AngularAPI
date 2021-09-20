@@ -1,0 +1,128 @@
+<!--<div class="container">
+  <input type="button" class="btn btn-primary" (click)="loadAddnew()" data-toggle="modal" data-target="#myModal" value="Create New">
+  <hr>
+  <div *ngIf="!dataavailbale">
+
+    <h4> No Employee Data is present Click Add new to add Data!!!.</h4>
+  </div>
+
+  <table class="table" *ngIf="dataavailbale">
+    <thead>
+      <tr>
+        <th scope="col">Sr.No</th>
+        <th scope="col">Date</th>
+        <th scope="col">DistanceInMeters</th>
+        <th scope="col">TimeInSeconds</th>-->
+<!--<th scope="col">Gender</th>-->
+<!--<th scope="col" style="align-content: center">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let e of emplist">
+    <td scope="col">{{1}}</td>
+    <td scope="col">{{e.Date}}</td>
+    <td scope="col">{{e.DistanceInMeters}}</td>
+    <td scope="col">{{e.TimeInSeconds}}</td>
+    <td style="display:none">{{e.Id}}</td>
+    <td scope="col">-->
+<!--<button type="button" class="btn btn-default btn-primary" (click)="loadnewForm(e.Id,e.Date,e.DistanceInMeters,e.TimeInSeconds)"
+        data-toggle="modal" data-target="#myModaledit">
+  <span class="glyphicon glyphicon-edit"></span> Edit
+</button>-->
+<!--|-->
+<!--<button type="button" class="btn btn-default btn-danger" (click)="deleteconfirmation(e.Id)">
+  <span class="glyphicon glyphicon-trash"></span> Delete
+</button>-->
+<!--</td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-primary">Employee Add</h4>
+      </div>-->
+<!--<div class="modal-body">
+
+  <app-employee-add #empadd (nameEvent)="RefreshData($event)"></app-employee-add>
+
+</div>-->
+<!--<div class="modal-footer">
+        <button type="button" #closeBtn class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="myModaledit" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Edit</h4>
+      </div>-->
+<!--<div class="modal-body">
+  <app-employee-update (nameEvent)="RefreshData($event)" [isReset]="resetForm" #regForm></app-employee-update>
+</div>-->
+<!--<div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>-->
+<!--<div class="row">
+  <div class="col-md-4">
+    <app-employee-add (joggingCreated)="createOrUpdateJogging($event)" [joggingInfo]="currentJogging"></app-employee-add>
+  </div>
+  <div class="col-md-8">
+    <app-grid-jogging [joggingData]="joggingData" (editClicked)="editClicked($event)" (newClicked)="editClicked($event)" (recordDeleted)="deleteClicked($event)"></app-grid-jogging>
+  </div>
+</div>-->
+<!--<table mat-table [dataSource]="joggingData">
+  ...
+</table>-->
+
+<div *ngIf="!joggingData">
+
+  <h4> No Employee Data is present Click Add new to add Data!!!.</h4>
+</div>
+<a href="#" class="btn btn-primary" id="new-button">New</a>
+<h1 class="d-flex justify-content-center">List of Records</h1>
+
+<table class="table" *ngIf="joggingData">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Distance in meters</th>
+      <th>Time</th>
+      <th>Average speed</th>
+      <!--<th>Commands</th>-->
+    </tr>
+  </thead>
+  <tbody>
+
+
+    <tr>
+
+    <td>{{ joggingData?.date | date : 'MMM d, y, h:mm:ss a'  }}</td>
+    <td>{{ joggingData?.distanceInMeters }}</td>
+
+    <td>{{ joggingData?.timeInSeconds / 60 | number: '1.0-0' }}:{{ joggingData.timeInSeconds % 60 |number: '2.0-0' }}</td>
+    <td>{{ (joggingData?.distanceInMeters / joggingData?.timeInSeconds) * 3.6 | number:'1.2-2' }}</td>
+    <td>
+      <a href="#" (click)="editRecord(this)">Edit</a>
+      <a href="#" (click)="deleteRecord(this)">Delete</a>
+    </td>
+    
+
+
+    </tr>
+
+  </tbody>
+</table>

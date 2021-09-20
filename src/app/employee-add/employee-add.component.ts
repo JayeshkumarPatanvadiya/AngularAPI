@@ -23,40 +23,50 @@ import {
   Output,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { employee } from 'src/Models/Employee';
+import { Employee } from 'src/app/Models/Employee';
 import { Router } from '@angular/router';
 import { EmployeeDataServiceService } from '../DataService/employee-data-service.service';
+
+
+
 @Component({
   selector: 'app-employee-add',
   templateUrl: './employee-add.component.html',
-  styleUrls: ['./employee-add.component.sass'],
+  styleUrls: ['./employee-add.component.css']
 })
+
+
+
 export class EmployeeAddComponent implements OnInit {
+  @Output() joggingCreated = new EventEmitter<any>();
+  @Input() joggingInfo: any;
   @Input() cleardata: boolean = false;
   @Output() nameEvent = new EventEmitter<string>();
-  objtempemp: Employee;
+  objtempemp: Employee | undefined;
   @Input() objemp: Employee = new Employee();
-  @ViewChild('closeBtn') cb: ElementRef;
+  @ViewChild('closeBtn') cb?: ElementRef;
+  public buttonText = 'Save';
   constructor(
-    private dataservice: EmployeeDataService,
+
+    private dataservice: EmployeeDataServiceService,
     private route: Router
   ) {}
   ngOnInit() {}
   Register(regForm: NgForm) {
     this.objtempemp = new Employee();
-    this.objtempemp.email = regForm.value.email;
-    this.objtempemp.firstname = regForm.value.firstname;
-    this.objtempemp.lastname = regForm.value.lastname;
-    this.objtempemp.gender = regForm.value.gender;
+    this.objtempemp.Id = regForm.value.email;
+    this.objtempemp.Date = regForm.value.firstname;
+    this.objtempemp.DistanceInMeters = regForm.value.lastname;
+    this.objtempemp.TimeInSeconds = regForm.value.gender;
 
-    this.dataservice.AddEmployee(this.objtempemp).subscribe((res) => {
+    this.dataservice.add(this.objtempemp).subscribe((res) => {
       alert('Employee Added successfully');
-      this.TakeHome();
+    //  this.TakeHome();
     });
   }
-  TakeHome() {
-    this.nameEvent.emit('ccc');
-    this.cb.nativeElement.click();
-    this.route.navigateByUrl('');
-  }
+//  TakeHome() {
+//    this.nameEvent.emit('ccc');
+//    this.cb.nativeElement.click();
+//    this.route.navigateByUrl('');
+//  }
 }

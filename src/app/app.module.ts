@@ -6,19 +6,27 @@ import { AppComponent } from './app.component';
 import { AngularCrudComponent } from './angular-crud/angular-crud.component';
 import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
+import { EmployeelistComponent } from './employeelist/employeelist.component';
+import { EmployeeDataServiceService } from './DataService/employee-data-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     AngularCrudComponent,
     EmployeeAddComponent,
-    EmployeeUpdateComponent
+    EmployeeUpdateComponent,
+    EmployeelistComponent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [EmployeeDataServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
