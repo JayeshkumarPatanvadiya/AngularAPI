@@ -4,9 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\DataService",
-    "\\src\\app\\employee-update",
+    "\\src\\app\\employee-add",
+    "\\src\\app\\employeelist",
     "\\src\\app\\Models"
   ],
-  "SelectedNode": "\\src\\app\\DataService\\employee-data-service.service.ts",
   "PreviewInSolutionExplorer": false
 }

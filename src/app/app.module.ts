@@ -10,6 +10,9 @@ import { EmployeelistComponent } from './employeelist/employeelist.component';
 import { EmployeeDataServiceService } from './DataService/employee-data-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import * as _ from 'lodash';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,15 +21,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EmployeeAddComponent,
     EmployeeUpdateComponent,
     EmployeelistComponent,
-    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [EmployeeDataServiceService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

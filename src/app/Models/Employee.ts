@@ -3,8 +3,5 @@ export class Employee {
   Date!: string;
   DistanceInMeters!: string;
   TimeInSeconds!: number;
-    email: any;
-    firstname: any;
-    lastname: any;
-    gender: any;
+  InsertDateTime!: string;
 }
