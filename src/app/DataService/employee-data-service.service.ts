@@ -13,6 +13,7 @@ export class EmployeeDataServiceService {
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
+      // 'Cache-Control': 'no-cache',
     });
   }
 
@@ -36,5 +37,23 @@ export class EmployeeDataServiceService {
     return this.http.put(this.accessPointUrl + '/' + payload.Id, payload, {
       headers: this.headers,
     });
+  }
+
+  getData() {
+    return this.http.get('https://localhost:44386/api/Workouts'); //https://localhost:44352/ webapi host url
+  }
+
+  postData(formData: any) {
+    return this.http.post('https://localhost:44386/api/Workouts', formData);
+  }
+
+  putData(id: any, formData: any) {
+    return this.http.put(
+      'https://localhost:44386/api/Workouts/' + id,
+      formData
+    );
+  }
+  deleteData(id: any) {
+    return this.http.delete('https://localhost:44386/api/Workouts/' + id);
   }
 }

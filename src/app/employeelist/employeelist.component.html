@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col-md-6">
-    <app-employee-add (joggingCreated)="createOrUpdateJogging($event)" [joggingInfo]="currentJogging"></app-employee-add>
+    <!-- <app-employee-add (joggingCreated)="createOrUpdateJogging($event)" [joggingInfo]="currentJogging"></app-employee-add> -->
   </div>
   <!-- <div class="col-md-6">
     <app-employeelist [joggingData]="joggingData" (editClicked)="editClicked($event)" (newClicked)="editClicked($event)" (recordDeleted)="deleteClicked($event)"></app-employeelist>
@@ -22,6 +22,8 @@
       <th>Time</th>
       <th>Average speed</th>
       <th>InsertDateTime</th>
+      <th>Action</th>
+
     </tr>
   </thead>
   <tbody>
@@ -30,17 +32,17 @@
     <tr  *ngFor="let i of joggingData">
 
   <td>{{ i?.id  }}</td>
-  <td>{{ i?.date | date : 'MMM d, y, h:mm:ss a' }}</td>
+  <td>{{ i?.date  }}</td>
   <td>{{ i?.distanceInMeters }}</td>
 
-  <td>{{ i?.timeInSeconds / 60 | number: '1.0-0' }}:{{ i.timeInSeconds % 60 |number: '2.0-0' }}</td>
-  <td>{{ (i?.distanceInMeters / i?.timeInSeconds) * 3.6 | number:'1.2-2' }}</td>
-      <td>{{ i?.insertDateTime | date : 'MMM d, y, h:mm:ss a'}}</td>
+  <td>{{ i?.timeInSeconds   }}</td>
+  <td>{{ i?.distanceInMeters  }}</td>
+      <td>{{ i?.insertDateTime}}</td>
 
-  <!--<td>
-      <a href="#" (click)="editRecord(this)">Edit</a>
+  <td>
+      <a href="#" (click)="editRecord(this)">Edit</a> |
       <a href="#" (click)="deleteRecord(this)">Delete</a>
-    </td>-->
+    </td>
     
 
 

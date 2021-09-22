@@ -1,5 +1,108 @@
 
-<!--<app-root></app-root>-->
-<!--<router-outlet></router-outlet>-->
-<app-employeelist></app-employeelist>
+
+
+<div class="container"> 
+<div class="container-fluid">
+    <form [formGroup]="EmpForm"  id="submit" (ngSubmit)="createOrUpdateJogging()">
+    
+        <div class="row">
+    
+            <table class="m-3 p-3 table shadow p-3 mb-5 bg-white rounded">
+                <tr class="form-group">
+                    <td>Date</td>
+                    <td>    
+                        <input type="hidden" formControlName="id" value="16">
+                        <input type="date" class="form-control" formControlName="date">
+                        <!-- <div *ngIf="submitted && EmpForm.controls.date.errors" class="text-danger">
+                            <div *ngIf="EmpForm.controls.date.errors.required">date is required</div>
+                        </div> -->
+                    </td>
+                </tr>
+    
+                <tr class="form-group">
+                    <td>DistanceInMeters</td>
+                    <td><input type="number" class="form-control" formControlName="distanceInMeters">
+                        <!-- <div *ngIf="submitted && EmpForm.controls.distanceInMeters.errors" class="text-danger">
+                            <div *ngIf="EmpForm.controls.distanceInMeters.errors.required">distanceInMeters is required</div>
+                        </div> -->
+                    </td>
+                </tr>
+                <tr class="form-group">
+                    <td>timeInSeconds</td>
+                    <td>
+                        <input type="number" class="form-control" formControlName="timeInSeconds">
+                        <!-- <div *ngIf="submitted && EmpForm.controls.timeInSeconds.errors" class="text-danger">
+                            <div *ngIf="EmpForm.controls.timeInSeconds.errors.required">TimeInSeconds is required</div>
+                        </div> -->
+                    </td>
+                </tr>
+                <tr class="form-group">
+                    <td>insertDateTime</td>
+                    <td>
+                        <input type="date" class="form-control" formControlName="insertDateTime">
+                        <!-- <div *ngIf="submitted && EmpForm.controls.insertDateTime.errors" class="text-danger">
+                            <div *ngIf="EmpForm.controls.insertDateTime.errors.required">insertDateTime is required</div>
+                        </div> -->
+    
+                    </td>
+                </tr>
+               
+    
+                    
+                        <button type="submit" class="d-flex justify-content-center btn btn-primary bg-success">{{EventValue}}</button>
+                   
+
+    
+            </table>
+        </div>
+    
+    </form>
+    <button type="Cansel" (click)="resetFrom()" class="d-flex justify-content-center btn btn-primary bg-primary">Cansel</button>
+</div>
+<div *ngIf="!data">
+    <h4> No Employee Data is present Click Add new to add Data!!!.</h4>
+</div>
+<h1 class="d-flex justify-content-center">List of Records</h1>
+     
+     
+ <div class="row">  
+<table class="table" *ngIf="data">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Distance in meters</th>
+            <th>Time</th>
+            <!-- <th>Average speed</th> -->
+            <th>InsertDateTime</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+
+        <tr *ngFor="let i of data">
+
+            <td>{{ i?.id }}</td>
+            <td>{{ i?.date | date : 'MMM d, y, h:mm:ss a' }}</td>
+            
+
+            <td>{{ i?.timeInSeconds  }}</td>
+            <td>{{ i?.distanceInMeters  | number:'1.2-2' }}</td>
+            <td>{{ i?.insertDateTime | date : 'MMM d, y, h:mm:ss a'}}</td>
+
+        <td><a (click)="EditData(i)" class="btn btn-warning">Edit</a></td>
+        <td><a (click)="deleteData(i.id)" class="btn btn-danger">Delete</a></td>
+
+
+        </tr>
+
+    </tbody>
+</table>
+</div>  
+  
+  
+</div>  
+<!-- <app-employeelist></app-employeelist> -->
 
