@@ -15,7 +15,7 @@ import { __asyncGenerator } from 'tslib';
 import * as _ from 'lodash';
 import { DatePipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-employeelist',
   templateUrl: './employeelist.component.html',
@@ -36,7 +36,7 @@ export class EmployeelistComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal
   ) {
-    dataservce1.get().subscribe((data: any) => (this.joggingData = data));
+    this.getdata();
   }
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
@@ -71,17 +71,24 @@ export class EmployeelistComponent implements OnInit {
   }
 
   onSubmit() {
-    // alert('update call' + this.editProfileForm.value.id);
-    // if (this.editProfileForm.invalid) {
-    //   return;
-    // }
-    this.dataservce1
-      .putData(this.editProfileForm.value.id, this.editProfileForm.value)
-      .subscribe((data: any) => {
-        this.data = data;
-        // this.resetFrom();
-      });
-    console.log('res:', this.editProfileForm.getRawValue());
+    if (this.editProfileForm.value.id == null) {
+      this.newRecord();
+    } else {
+      this.dataservce1
+        .putData(this.editProfileForm.value.id, this.editProfileForm.value)
+        .subscribe((data: any) => {
+          this.data = data;
+          // this.resetFrom();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your data updated successfully!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+      console.log('res:', this.editProfileForm.getRawValue());
+    }
   }
 
   public deleteRecord(record: any) {
@@ -89,20 +96,59 @@ export class EmployeelistComponent implements OnInit {
   }
 
   getdata() {
-    this.dataservce1.getData().subscribe((data: any) => {
-      this.data = data;
-    });
+    this.dataservce1.get().subscribe((data: any) => (this.joggingData = data));
   }
 
   deleteData(id: any) {
-    if (confirm('Are you sure to delete id number ' + id)) {
-      this.dataservce1.deleteData(id).subscribe((data: any) => {
-        this.data = data;
-        this.getdata();
-      });
-    }
+    // if (confirm('Are you sure to delete id number ' + id)) {
+    //   this.dataservce1.deleteData(id).subscribe((data: any) => {
+    //     this.data = data;
+
+    //     this.getdata();
+    //   });
+    // }
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dataservce1.deleteData(id).subscribe((data: any) => {
+          this.data = data;
+
+          this.getdata();
+        });
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
+    });
   }
   public newRecord() {
-    this.newClicked.emit();
+    this.submitted = true;
+
+    if (this.EmpForm.invalid) {
+      alert('Invalid Form');
+      return;
+    }
+
+    var string1 = JSON.stringify(this.EmpForm.value);
+    var parsed = JSON.parse(string1);
+    delete parsed.id;
+    alert(
+      'hello save' +
+        parsed['distanceInMeters'] +
+        parsed['timeInSeconds'] +
+        parsed['date'] +
+        parsed['id'] +
+        parsed['insertDateTime']
+    );
+
+    this.dataservce1.postData(parsed).subscribe((data: any) => {
+      //  this.resetFrom();
+    });
   }
 }
