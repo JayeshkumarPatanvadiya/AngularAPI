@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService as ToastsService } from 'ngx-toastr';
 import { EmployeeDataServiceService } from './DataService/employee-data-service.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { update } from 'lodash';
 @Component({
@@ -29,23 +29,15 @@ export class AppComponent implements OnInit {
   submitted = false;
   EventValue: any = 'Save';
 
-  // private setInitialValuesForJoggingData() {
-  //   return {
-  //     id: undefined,
-  //     date: '',
-  //     distanceInMeters: '',
-  //     timeInSeconds: '',
-  //   };
-  // }
   ngOnInit() {
     this.getdata();
 
     this.EmpForm = new FormGroup({
       id: new FormControl(null),
-      date: new FormControl(''),
-      distanceInMeters: new FormControl(''),
-      timeInSeconds: new FormControl(''),
-      insertDateTime: new FormControl(''),
+      date: new FormControl('', [Validators.required]),
+      distanceInMeters: new FormControl('', [Validators.required]),
+      timeInSeconds: new FormControl('', [Validators.required]),
+      insertDateTime: new FormControl('', [Validators.required]),
     });
   }
 
@@ -74,41 +66,49 @@ export class AppComponent implements OnInit {
 
   createOrUpdateJogging() {
     if (this.EmpForm.value.id == null) {
-      this.submitted = true;
-      // if (this.EmpForm.invalid) {
-      //   return;
-      // }
-      this.employeeDataServiceService
-        .postData(this.EmpForm.value)
-        .subscribe((data) => {
-          alert(data);
-          this.data = data;
-          this.resetFrom();
-        });
-      // this.employeeDataServiceService
-      //   .postData(this.EmpForm.value)
-      //   .subscribe((data: any) => {
-      //     this.data = data;
-      //     this.resetFrom();
-      //   });
-      //  this.showToaster();
+      this.Save();
     } else {
-      alert('hello update');
-      this.submitted = true;
-      if (this.EmpForm.invalid) {
-        return;
-      }
-      this.employeeDataServiceService
-        .putData(this.EmpForm.value.id, this.EmpForm.value)
-        .subscribe((data: any) => {
-          alert(data);
-          this.data = data;
-          this.showToastereEdit();
-          this.resetFrom();
-        });
+      alert('hello update' + this.EmpForm.value.id);
+      this.Update();
     }
   }
+  Save() {
+    this.submitted = true;
 
+    if (this.EmpForm.invalid) {
+      alert('Invalid Form');
+      return;
+    }
+
+    var string1 = JSON.stringify(this.EmpForm.value);
+    var parsed = JSON.parse(string1);
+    delete parsed.id;
+    alert(
+      'hello save' +
+        parsed['distanceInMeters'] +
+        parsed['timeInSeconds'] +
+        parsed['date'] +
+        parsed['id'] +
+        parsed['insertDateTime']
+    );
+
+    this.employeeDataServiceService.postData(parsed).subscribe((data) => {
+      this.resetFrom();
+    });
+  }
+  Update() {
+    this.submitted = true;
+
+    if (this.EmpForm.invalid) {
+      return;
+    }
+    this.employeeDataServiceService
+      .putData(this.EmpForm.value.id, this.EmpForm.value)
+      .subscribe((data: any) => {
+        this.data = data;
+        this.resetFrom();
+      });
+  }
   EditData(Data: any) {
     this.EmpForm.controls['id'].setValue(Data.id);
     // datePipe.transform(Data.date(), 'yyyy-MM-dd');

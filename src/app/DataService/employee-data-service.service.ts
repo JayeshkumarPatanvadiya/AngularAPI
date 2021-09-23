@@ -22,8 +22,8 @@ export class EmployeeDataServiceService {
     return this.http.get(this.accessPointUrl, { headers: this.headers });
   }
 
-  public add(payload: any) {
-    return this.http.post(this.accessPointUrl, payload, {
+  public add(formData: any) {
+    return this.http.post<any>(this.accessPointUrl, formData, {
       headers: this.headers,
     });
   }

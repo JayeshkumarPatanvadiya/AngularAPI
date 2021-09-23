@@ -2,7 +2,7 @@
 
 
 <div class="container"> 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <form [formGroup]="EmpForm"  id="submit" (ngSubmit)="createOrUpdateJogging()">
     
         <div class="row">
@@ -13,46 +13,42 @@
                     <td>    
                         <input type="hidden" formControlName="id" value="16">
                         <input type="date" class="form-control" formControlName="date">
-                        <!-- <div *ngIf="submitted && EmpForm.controls.date.errors" class="text-danger">
+                        <div *ngIf="submitted && EmpForm.controls.date.errors" class="text-danger">
                             <div *ngIf="EmpForm.controls.date.errors.required">date is required</div>
-                        </div> -->
+                        </div>
                     </td>
                 </tr>
     
                 <tr class="form-group">
                     <td>DistanceInMeters</td>
                     <td><input type="number" class="form-control" formControlName="distanceInMeters">
-                        <!-- <div *ngIf="submitted && EmpForm.controls.distanceInMeters.errors" class="text-danger">
+                        <div *ngIf="submitted && EmpForm.controls.distanceInMeters.errors" class="text-danger">
                             <div *ngIf="EmpForm.controls.distanceInMeters.errors.required">distanceInMeters is required</div>
-                        </div> -->
+                        </div>
                     </td>
                 </tr>
                 <tr class="form-group">
                     <td>timeInSeconds</td>
                     <td>
                         <input type="number" class="form-control" formControlName="timeInSeconds">
-                        <!-- <div *ngIf="submitted && EmpForm.controls.timeInSeconds.errors" class="text-danger">
+                        <div *ngIf="submitted && EmpForm.controls.timeInSeconds.errors" class="text-danger">
                             <div *ngIf="EmpForm.controls.timeInSeconds.errors.required">TimeInSeconds is required</div>
-                        </div> -->
+                        </div>
                     </td>
                 </tr>
                 <tr class="form-group">
                     <td>insertDateTime</td>
                     <td>
                         <input type="date" class="form-control" formControlName="insertDateTime">
-                        <!-- <div *ngIf="submitted && EmpForm.controls.insertDateTime.errors" class="text-danger">
+                        <div *ngIf="submitted && EmpForm.controls.insertDateTime.errors" class="text-danger">
                             <div *ngIf="EmpForm.controls.insertDateTime.errors.required">insertDateTime is required</div>
-                        </div> -->
+                        </div>
     
                     </td>
                 </tr>
                
-    
-                    
                         <button type="submit" class="d-flex justify-content-center btn btn-primary bg-success">{{EventValue}}</button>
                    
-
-    
             </table>
         </div>
     
@@ -61,19 +57,18 @@
 </div>
 <div *ngIf="!data">
     <h4> No Employee Data is present Click Add new to add Data!!!.</h4>
-</div>
-<h1 class="d-flex justify-content-center">List of Records</h1>
+</div> -->
+
      
      
  <div class="row">  
-<table class="table" *ngIf="data">
+<!-- <table class="table" *ngIf="data">
     <thead>
         <tr>
             <th>Id</th>
             <th>Date</th>
             <th>Distance in meters</th>
             <th>Time</th>
-            <!-- <th>Average speed</th> -->
             <th>InsertDateTime</th>
             <th>Action</th>
 
@@ -99,10 +94,13 @@
         </tr>
 
     </tbody>
-</table>
+</table> -->
 </div>  
   
   
 </div>  
-<!-- <app-employeelist></app-employeelist> -->
+
+
+
+<app-employeelist></app-employeelist>
 

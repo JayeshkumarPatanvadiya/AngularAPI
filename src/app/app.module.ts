@@ -19,7 +19,7 @@ import {
 } from '@angular/forms';
 import * as _ from 'lodash';
 import { ToastrModule } from 'ngx-toastr';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,19 +36,9 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
-    // MatDatepickerModule,
-    // MatFormFieldModule,
-    // MatNativeDateModule,
-    // MatInputModule,
-    // BrowserAnimationsModule,
+    NgbModule,
   ],
-  exports: [
-    // MatDatepickerModule,
-    // MatFormFieldModule,
-    // MatNativeDateModule,
-    // MatInputModule,
-    // BrowserAnimationsModule,
-  ],
+  exports: [],
   providers: [EmployeeDataServiceService, DatePipe],
   bootstrap: [AppComponent],
 })
