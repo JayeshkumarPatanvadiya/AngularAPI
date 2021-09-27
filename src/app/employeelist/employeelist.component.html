@@ -1,10 +1,16 @@
-<div *ngIf="!joggingData">
-  <h4> No Employee Data is present Click Add new to add Data!!!.</h4>
-</div>
+
 <h1 class="d-flex justify-content-center">List of Records</h1>
-<button type="submit" (click)="openModal(editProfileModal,'')" class="btn btn-primary">Insert</button>
+<div *ngIf="!joggingData">
+  <mat-spinner></mat-spinner>
+  <h4 style="text-align: center;"> No Employee Data is present Click Add new to add Data!!!.</h4>
+</div>
+<button type="submit" (click)="openModal(editProfileModal,'')" class="btn btn-primary" style="float: right;" mat-raised-button
+        matTooltip="Insert"
+        aria-label="Insert"><mat-icon aria-hidden="false" aria-label="Example add icon">add</mat-icon></button>
 
-
+<p>
+  <span [matBadge]="joggingData.length" matBadgeOverlap="false">Total Number of Records</span>
+</p>
 <table class="table" *ngIf="joggingData">
   <thead>
     <tr>
@@ -30,16 +36,23 @@
       <td>{{ i?.insertDateTime | date : 'MMM d, y, h:mm:ss a'}}</td>
 
   
-      <td><a (click)="openModal(editProfileModal,i)" class="btn btn-warning">Edit</a></td>
-      <td><a (click)="deleteData(i.id)" class="btn btn-danger">Delete</a></td>
+      <td><a (click)="openModal(editProfileModal,i)" class="btn btn-warning"  mat-raised-button
+        matTooltip="Edit"
+        aria-label="Edit"><mat-icon aria-hidden="false" aria-label="Example edit icon">edit</mat-icon>
+</a></td>
+      <td><a (click)="deleteData(i.id)" class="btn btn-danger"  mat-raised-button
+        matTooltip="Delete"
+        aria-label="Delete"><mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon></a></td>
 
     </tr>
 
   </tbody>
 </table>
+
+
 <ng-template #editProfileModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
+    <h5 class="modal-title" id="editProfileLabel">Profile</h5>
     <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -78,7 +91,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit"   class="btn btn-primary">Save changes</button>
+        <button type="submit"   class="btn btn-primary" >Save changes</button>
       </div>
     </form>
   </div>

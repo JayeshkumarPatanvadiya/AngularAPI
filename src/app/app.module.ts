@@ -20,6 +20,12 @@ import {
 import * as _ from 'lodash';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +43,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     NgbModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatBadgeModule,
+    MatPaginatorModule,
   ],
   exports: [],
   providers: [EmployeeDataServiceService, DatePipe],
