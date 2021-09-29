@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [AppComponent, EmployeelistComponent],
@@ -41,6 +42,7 @@ import { MatTableModule } from '@angular/material/table';
     MatBadgeModule,
     MatPaginatorModule,
     MatTableModule,
+    MatSortModule,
   ],
   exports: [],
   providers: [EmployeeDataServiceService, DatePipe],

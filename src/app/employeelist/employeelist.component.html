@@ -1,168 +1,202 @@
+<div>
+  <h1 class="d-flex justify-content-center mt-3">List of Records</h1>
+  <div *ngIf="!data">
+    <mat-spinner></mat-spinner>
+    <h4 style="text-align: center">
+      No Employee Data is present Click Add new to add Data!!!.
+    </h4>
+  </div>
 
-<h1 class="d-flex justify-content-center">List of Records</h1>
-<div *ngIf="!joggingData">
-  <mat-spinner></mat-spinner>
-  <h4 style="text-align: center;"> No Employee Data is present Click Add new to add Data!!!.</h4>
-</div>
-<button type="submit" (click)="openModal(editProfileModal,'')" class="btn btn-primary" style="float: right;" mat-raised-button
-        matTooltip="Insert"
-        aria-label="Insert"><mat-icon aria-hidden="false" aria-label="Example add icon">add</mat-icon></button>
+  <button
+    type="submit"
+    (click)="openModal(editProfileModal, '')"
+    class="CreateEmp pl-3 btn btn-primary"
+    mat-raised-button
+    matTooltip="Insert"
+    aria-label="Insert"
+  >
+    <mat-icon aria-hidden="false" aria-label="Example add icon">add</mat-icon>
+  </button>
 
-<p>
-  <span [matBadge]="joggingData.length" matBadgeOverlap="false">Total Number of Records</span>
-</p>
-<table class="table" *ngIf="joggingData">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Date</th>
-      <th>Distance in meters</th>
-      <th>Time</th>
-      
-      <th>InsertDateTime</th>
-      <th>Action</th>
+  <p>
+    <span [matBadge]="data?.length" matBadgeOverlap="false"
+      >Total Number of Records</span
+    >
+  </p>
 
-    </tr>
-  </thead>
-  <tbody>
+  <div class="example-container mat-elevation-z8 table mt-5">
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+      </ng-container>
 
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.date | date: "MMM d, y, h:mm:ss a" }}
+        </mat-cell>
+      </ng-container>
 
-    <tr  *ngFor="let i of joggingData">
-  <td>{{ i?.id  }}</td>
-  <td>{{ i?.date | date : 'MMM d, y, h:mm:ss a'  }}</td>
-  <td>{{ i?.distanceInMeters }}</td>
-  <td>{{ i?.timeInSeconds    }}</td>
-      <td>{{ i?.insertDateTime | date : 'MMM d, y, h:mm:ss a'}}</td>
+      <ng-container matColumnDef="distanceInMeters">
+        <mat-header-cell *matHeaderCellDef>
+          Distance In Meters
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.distanceInMeters }}
+        </mat-cell>
+      </ng-container>
 
-  
-      <td>
-        <a (click)="openModal(editProfileModal,i)" class="btn btn-warning"  mat-raised-button
-        matTooltip="Edit"
-        aria-label="Edit"><mat-icon aria-hidden="false" aria-label="Example edit icon">edit</mat-icon>
-</a>
-</td>
-      <td>
-        <a (click)="deleteData(i.id)" class="btn btn-danger"  mat-raised-button
-        matTooltip="Delete"
-        aria-label="Delete"><mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
-      </a>
-      </td>
-
-    </tr>
-
-  </tbody>
-</table>
-
-
-
-<div class="example-container mat-elevation-z8 table">
-  <mat-table #table [dataSource]="dataSource">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.date | date : 'MMM d, y, h:mm:ss a'}} </mat-cell>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="distanceInMeters">
-      <mat-header-cell *matHeaderCellDef> Distance In Meters </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.distanceInMeters}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="timeInSeconds">
-      <mat-header-cell *matHeaderCellDef> Time In Seconds </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.timeInSeconds}} </mat-cell>
-    </ng-container>
-
-      <!-- Symbol Column -->
-      <!-- <ng-container matColumnDef="insertDateTime">
-        <mat-header-cell *matHeaderCellDef> Inserted DateTime </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.insertDateTime}} </mat-cell>
-      </ng-container> -->
+      <ng-container matColumnDef="timeInSeconds">
+        <mat-header-cell *matHeaderCellDef> Time In Seconds </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.timeInSeconds }}
+        </mat-cell>
+      </ng-container>
 
       <!-- Action Column -->
-    <!-- Action Column -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>     
-      <div  mat-cell *matCellDef="let element" class="action-link">
-       
-        <a (click)="openModal(editProfileModal,element)" class="btn btn-warning" mat-raised-button matTooltip="Edit"
-          aria-label="Edit">
-          <mat-icon aria-hidden="false" aria-label="Example edit icon">edit</mat-icon>
-        </a> |
-        <a (click)="deleteData(element.id)" class="btn btn-danger" mat-raised-button matTooltip="Delete" aria-label="Delete">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
-        </a>
-        <!-- <a  (click)="openModal(editProfileModal,element)">Edit</a> |
-        <a (click)="deleteData(element.id)">Delete</a>      -->
-        
-      </div>
-      
-    </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <div mat-cell *matCellDef="let element" class="action-link">
+          <a
+            (click)="openModal(editProfileModal, element)"
+            class="btn btn-warning"
+            mat-raised-button
+            matTooltip="Edit"
+            aria-label="Edit"
+          >
+            <mat-icon aria-hidden="false" aria-label="Example edit icon"
+              >edit</mat-icon
+            >
+          </a>
+          |
+          <a
+            (click)="deleteData(element.id)"
+            class="btn btn-danger"
+            mat-raised-button
+            matTooltip="Delete"
+            aria-label="Delete"
+          >
+            <mat-icon aria-hidden="false" aria-label="Example home icon"
+              >delete</mat-icon
+            >
+          </a>
+        </div>
+      </ng-container>
 
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-
-  <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6]">
-  </mat-paginator>
-</div>
-
-
-
-
-<ng-template #editProfileModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title" id="editProfileLabel">Profile</h5>
-    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6]">
+    </mat-paginator>
   </div>
 
-  <div class="modal-body">
-    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
-        <!-- <div class="form-group row">
-          <label for="id" hidden class="col-sm-4 col-form-label">id</label>
+  <ng-template #editProfileModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="editProfileLabel">Profile</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        (click)="modal.dismiss()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label for="date" class="col-sm-4 col-form-label">date</label>
           <div class="col-sm-8">
-            <input type="number" hidden class="form-control" formControlName="id" id="id">
+            <input
+              required
+              type="datetime-local"
+              #date
+              class="form-control"
+              name="date"
+              formControlName="date"
+              id="date"
+            />
+
+            <div
+              *ngIf="
+                editProfileForm.controls['date'].invalid &&
+                editProfileForm.controls['date'].touched
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="editProfileForm.controls['date'].errors?.required">
+                date is required.
+              </div>
+            </div>
           </div>
-        </div> -->
-      <div class="form-group row">
-        <label for="date" class="col-sm-4 col-form-label">date</label>
-        <div class="col-sm-8">
-          <input type="datetime-local" class="form-control" formControlName="date" id="date">
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="distanceInMeters" class="col-sm-4 col-form-label">distanceInMeters</label>
-        <div class="col-sm-8">
-          <input type="number" class="form-control" formControlName="distanceInMeters" id="distanceInMeters">
+        <div class="form-group row">
+          <label for="distanceInMeters" class="col-sm-4 col-form-label"
+            >distanceInMeters</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="number"
+              class="form-control"
+              formControlName="distanceInMeters"
+              id="distanceInMeters"
+            />
+
+            <div
+              *ngIf="
+                editProfileForm.controls['distanceInMeters'].invalid &&
+                editProfileForm.controls['distanceInMeters'].touched
+              "
+              class="alert alert-danger"
+            >
+              <div
+                *ngIf="
+                  editProfileForm.controls['distanceInMeters'].errors?.required
+                "
+              >
+                distanceInMeters is required.
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="timeInSeconds" class="col-sm-4 col-form-label">timeInSeconds</label>
-        <div class="col-sm-8">
-          <input type="number" class="form-control" formControlName="timeInSeconds" id="timeInSeconds">
+        <div class="form-group row">
+          <label for="timeInSeconds" class="col-sm-4 col-form-label"
+            >timeInSeconds</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="number"
+              class="form-control"
+              formControlName="timeInSeconds"
+              id="timeInSeconds"
+            />
+
+            <div
+              *ngIf="
+                editProfileForm.controls['timeInSeconds'].invalid &&
+                editProfileForm.controls['timeInSeconds'].touched
+              "
+              class="alert alert-danger"
+            >
+              <div
+                *ngIf="
+                  editProfileForm.controls['timeInSeconds'].errors?.required
+                "
+              >
+                timeInSeconds is required.
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- <div class="form-group row">
-        <label for="insertDateTime" class="col-sm-4 col-form-label">insertDateTime</label>
-        <div class="col-sm-8">
-          <input type="datetime-local" class="form-control" formControlName="insertDateTime" id="insertDateTime">
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
-      </div> -->
-      <div class="modal-footer">
-        <button type="submit"   class="btn btn-primary" >Save changes</button>
-      </div>
-    </form>
-  </div>
-</ng-template>
+      </form>
+    </div>
+  </ng-template>
+</div>

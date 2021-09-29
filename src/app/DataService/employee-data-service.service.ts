@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Employee } from 'src/app/Models/Employee';
-import { ROOT_URL } from 'src/app/Models/config';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
