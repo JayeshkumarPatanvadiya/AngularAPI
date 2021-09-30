@@ -131,8 +131,8 @@ export class EmployeelistComponent implements OnInit {
     this.submitted = true;
 
     if (this.editProfileForm.invalid) {
-      alert('Invalid Form');
-      Swal.fire('Oopss! Invalid Form', 'SomeThing Went Wrong!', 'warning');
+      this.editProfileForm.markAllAsTouched();
+
       return;
     }
 

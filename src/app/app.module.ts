@@ -24,9 +24,17 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-
+import { SubjectFavouriteComponent } from './subject-favourite/subject-favourite.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
-  declarations: [AppComponent, EmployeelistComponent],
+  declarations: [
+    AppComponent,
+    EmployeelistComponent,
+    SubjectFavouriteComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,9 +51,19 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
+    MatCardModule,
+    MatGridListModule,
+    MatInputModule,
+    MatChipsModule,
   ],
   exports: [],
   providers: [EmployeeDataServiceService, DatePipe],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+
+
+
+
+  
+}

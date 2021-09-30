@@ -1,0 +1,25 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url("https://icon-library.com/images/subject-icon/subject-icon-5.jpg");
+  background-size: cover;
+}
+
+.ng-star-inserted {
+  font-size: 20px;
+}
+
+.example-card {
+  max-width: 400px;
+  margin: auto;
+}
+
+.mat-form-field-flex {
+  background-color: transparent !important;
+}
+
+.mat-card-actions {
+  text-align: center;
+}
