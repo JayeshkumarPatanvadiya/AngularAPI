@@ -1,0 +1,42 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Select Subject</mat-card-title>
+    <mat-card-subtitle> Subject</mat-card-subtitle>
+  </mat-card-header>
+  <h2>{{ Result.Subject }}</h2>
+  <ngb-rating
+    name="currentRate"
+    class="pt-3"
+    [(rate)]="Result.currentRate"
+  ></ngb-rating>
+  <hr />
+  <pre>Rate: <b>{{Result.currentRate}}</b></pre>
+
+  <div *ngIf="!selectSubject">
+    <button
+      mat-raised-button
+      matTooltip="Add to Favorite"
+      aria-label="Button that displays a tooltip when focused or hovered over"
+      type="button"
+      class="btn btn-primary float-right"
+      mat-button
+      (click)="SendDataToParent(Result)"
+    >
+      <i class="far fa-heart"></i>
+    </button>
+  </div>
+  <div *ngIf="favSubject">
+    <button
+      mat-raised-button
+      matTooltip="Remove From Favorite"
+      aria-label="Button that displays a tooltip when focused or hovered over"
+      type="button"
+      class="btn btn-primary float-right"
+      mat-button
+      (click)="SendDataToParent(Result)"
+    >
+      <i class="far fa-thumbs-down"></i>
+    </button>
+  </div>
+</mat-card>

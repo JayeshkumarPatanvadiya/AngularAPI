@@ -3,3 +3,11 @@
   position: relative;
   right: 27px;
 }
+
+.mat-spinner,
+.mat-progress-spinner {
+  position: absolute !important;
+  top: 50%;
+  right: 50%;
+  z-index: 999999;
+}

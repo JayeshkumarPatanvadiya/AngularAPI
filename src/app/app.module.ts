@@ -29,11 +29,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { SubjectFavouriteChildComponent } from './subject-favourite-child/subject-favourite-child.component';
+import { SubjectSelectComponent } from './subject-select/subject-select.component';
 @NgModule({
   declarations: [
     AppComponent,
     EmployeelistComponent,
     SubjectFavouriteComponent,
+    SubjectFavouriteChildComponent,
+    SubjectSelectComponent,
   ],
   imports: [
     BrowserModule,

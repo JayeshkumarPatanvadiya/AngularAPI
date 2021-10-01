@@ -3,141 +3,21 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h2 class="text-center p-3">Select Subjects</h2>
-
-          <div class="col-6" *ngFor="let Result of myObjArray">
-            <div class="col-12 pt-2">
-              <mat-card class="example-card">
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
-                  <mat-card-title>Favorite Subject</mat-card-title>
-                  <mat-card-subtitle>Select Subject</mat-card-subtitle>
-                </mat-card-header>
-                <h2>{{ Result.Subject }}</h2>
-                <ngb-rating
-                  name="currentRate"
-                  class="pt-3"
-                  [(rate)]="Result.currentRate"
-                ></ngb-rating>
-                <hr />
-                <pre>Rate: <b>{{Result.currentRate}}</b></pre>
-
-                <button
-                  mat-raised-button
-                  matTooltip="Add to Favorite"
-                  aria-label="Button that displays a tooltip when focused or hovered over"
-                  type="button"
-                  class="btn btn-primary float-right"
-                  mat-button
-                  (click)="addNew(Result)"
-                >
-                  <i class="far fa-heart"></i>
-                </button>
-              </mat-card>
-            </div>
-          </div>
+          <h2 class="text-center border-bottom pt-3">Select Subjects</h2>
+          <app-subject-favourite-child
+            [myinputMsg]="myInputMessage"
+            (SendToParent)="addNew($event)"
+          ></app-subject-favourite-child>
         </div>
-        <div class="col">
-          <h2 class="text-center p-3">Favorite Subjects</h2>
-          <div class="col-6" *ngFor="let Result of FavouriteSubjectArray">
-            <div class="col-12 pt-2">
-              <mat-card class="example-card">
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
-                  <mat-card-title>Favorite Subject</mat-card-title>
-                  <mat-card-subtitle>Select Subject</mat-card-subtitle>
-                </mat-card-header>
-                <h2>{{ Result.Subject }}</h2>
-                <ngb-rating
-                  name="currentRate"
-                  class="pt-3"
-                  [(rate)]="Result.currentRate"
-                ></ngb-rating>
-                <hr />
-                <pre>Rate: <b>{{Result.currentRate}}</b></pre>
-                <button
-                  mat-raised-button
-                  matTooltip="Remove From Favorite"
-                  aria-label="Button that displays a tooltip when focused or hovered over"
-                  type="button"
-                  class="btn btn-primary float-right"
-                  mat-button
-                  (click)="RemoveFavorite(Result)"
-                >
-                  <i class="far fa-heart"></i>
-                </button>
-              </mat-card>
-            </div>
-          </div>
+
+        <div class="col FavoriteBorderLeft">
+          <h2 class="text-center border-bottom pt-3">Favorite Subjects</h2>
+          <app-subject-favourite-child
+            [favouriteSubjectInput]="FavouriteSubjectInput"
+            (SendToMainParents)="RemoveFavorite($event)"
+          ></app-subject-favourite-child>
         </div>
       </div>
     </div>
-
-    <!-- Horizonal GRid -->
-    <!-- <div class="row">
-      <div class="col-3" *ngFor="let Result of myObjArray">
-        <div class="col-12 pt-2">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>Favorite Subject</mat-card-title>
-              <mat-card-subtitle>Select Subject</mat-card-subtitle>
-            </mat-card-header>
-            <h2>{{ Result.Subject }}</h2>
-            <ngb-rating
-              name="currentRate"
-              class="pt-3"
-              [(rate)]="Result.currentRate"
-            ></ngb-rating>
-            <hr />
-            <pre>Rate: <b>{{Result.currentRate}}</b></pre>
-
-            <button
-              mat-raised-button
-              matTooltip="Add to Favorite"
-              aria-label="Button that displays a tooltip when focused or hovered over"
-              type="button"
-              class="btn btn-primary float-right"
-              mat-button
-              (click)="addNew(Result)"
-            >
-              <i class="far fa-heart"></i>
-            </button>
-          </mat-card>
-        </div>
-      </div>
-
-      <h2 class="text-center p-3">Favorite Subjects</h2>
-      <div class="col-3" *ngFor="let Result of FavouriteSubjectArray">
-        <div class="col-12 pt-2">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>Favorite Subject</mat-card-title>
-              <mat-card-subtitle>Select Subject</mat-card-subtitle>
-            </mat-card-header>
-            <h2>{{ Result.Subject }}</h2>
-            <ngb-rating
-              name="currentRate"
-              class="pt-3"
-              [(rate)]="Result.currentRate"
-            ></ngb-rating>
-            <hr />
-            <pre>Rate: <b>{{Result.currentRate}}</b></pre>
-            <button
-              mat-raised-button
-              matTooltip="Remove From Favorite"
-              aria-label="Button that displays a tooltip when focused or hovered over"
-              type="button"
-              class="btn btn-primary float-right"
-              mat-button
-              (click)="RemoveFavorite(Result)"
-            >
-              <i class="far fa-heart"></i>
-            </button>
-          </mat-card>
-        </div>
-      </div>
-    </div> -->
   </mat-grid-list>
 </div>

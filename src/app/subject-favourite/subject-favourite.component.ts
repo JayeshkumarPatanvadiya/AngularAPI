@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { result } from 'lodash';
 
 @Component({
@@ -8,7 +8,7 @@ import { result } from 'lodash';
 })
 export class SubjectFavouriteComponent implements OnInit {
   currentRate = 8;
-  Subject: string = 'PHP';
+  Subject: string = 'Laravel';
   id = 0;
 
   myObjArray = [
@@ -21,9 +21,15 @@ export class SubjectFavouriteComponent implements OnInit {
     { id: 7, currentRate: 7, Subject: 'SQL' },
   ];
 
+  //  @Input()  Decorator In Angular , send Array to child component
+  myInputMessage: any = this.myObjArray;
+
   FavouriteSubjectArray = [
     { id: '8', currentRate: this.currentRate, Subject: 'Laravel' },
   ];
+
+  //  @Input()  Decorator In Angular , send Array to child component
+  FavouriteSubjectInput: any = this.FavouriteSubjectArray;
 
   addNew(Result: any) {
     this.FavouriteSubjectArray.push({
@@ -37,7 +43,6 @@ export class SubjectFavouriteComponent implements OnInit {
   }
 
   RemoveFavorite(Result: any) {
-    console.log(this.RemoveFavorite);
     this.myObjArray.push({
       currentRate: Result.currentRate,
       Subject: Result.Subject,
@@ -47,6 +52,7 @@ export class SubjectFavouriteComponent implements OnInit {
     let index = this.FavouriteSubjectArray.findIndex((y: any) => y.id == i);
     this.FavouriteSubjectArray.splice(index, 1);
   }
+
   constructor() {}
 
   ngOnInit(): void {}

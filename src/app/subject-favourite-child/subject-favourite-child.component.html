@@ -1,0 +1,31 @@
+<div class="col-6" *ngFor="let Result of myinputMsg">
+  <div class="col-12 pt-2">
+    <app-subject-select
+      [Result]="Result"
+      [Subchildinput]="Subchild"
+      [selectSubject]="true"
+    ></app-subject-select>
+  </div>
+</div>
+
+<div class="col-6" *ngFor="let Result of favouriteSubjectInput">
+  <div class="col-12 pt-2">
+    <app-subject-select
+      [Result]="Result"
+      [subChildInputFav]="subchildFav"
+      [favSubject]="true"
+    ></app-subject-select>
+
+    <!-- <button
+        mat-raised-button
+        matTooltip="Remove From Favorite"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        type="button"
+        class="btn btn-warning float-right"
+        mat-button
+        (click)="SendDataToMainParent(Result)"
+      >
+        <i class="far fa-thumbs-down"></i>
+      </button> -->
+  </div>
+</div>
