@@ -10,23 +10,23 @@ export class SubjectSelectComponent implements OnInit {
   @Input() Subchildinput?: any;
   @Input() subChildInputFav: any;
   @Input() Result: any;
-  @Input() favSubject: boolean = true;
-  @Input() selectSubject: boolean = true;
+  @Input() favSubject?: boolean;
+  @Input() selectSubject?: boolean;
 
-  @Output() SendToParent = new EventEmitter();
-  @Output() SendToMainParents = new EventEmitter();
+  @Output() sendSelectToSubParent = new EventEmitter();
+  @Output() sendFavToSubParent = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   //Used  @Output for send data to the parent component
-  SendDataToParent(Result: any) {
-    this.SendToParent.emit(Result);
+  sendSelectDataToSubParent(Result: any) {
+    this.sendSelectToSubParent.emit(Result);
   }
 
   //Used  @Output for send data to the parent component
-  SendDataToMainParent(Result: any) {
-    this.SendToMainParents.emit(Result);
+  sendFavDataToMainParent(Result: any) {
+    this.sendFavToSubParent.emit(Result);
   }
 }

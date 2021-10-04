@@ -1,3 +1,4 @@
+import { result } from 'lodash';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -25,12 +26,23 @@ export class SubjectFavouriteChildComponent implements OnInit {
   }
 
   //Used  @Output for send data to the parent component
-  SendDataToParent(Result: any) {
+  // SendDataToParent(Result: any) {
+  //   this.SendToParent.emit(Result);
+  //   console.log(Result);
+  // }
+
+  //Used  @Output for send data to the parent component
+  // SendDataToMainParent(Result: any) {
+  //   this.SendToMainParents.emit(Result);
+  // }
+
+  sendSelectDataToMainParent(Result: any) {
+   
     this.SendToParent.emit(Result);
   }
 
-  //Used  @Output for send data to the parent component
-  SendDataToMainParent(Result: any) {
+  sendFavDataToMainParent(Result: any) {
+    
     this.SendToMainParents.emit(Result);
   }
 }

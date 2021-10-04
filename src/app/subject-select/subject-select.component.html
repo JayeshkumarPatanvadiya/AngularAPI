@@ -13,7 +13,7 @@
   <hr />
   <pre>Rate: <b>{{Result.currentRate}}</b></pre>
 
-  <div *ngIf="!selectSubject">
+  <div *ngIf="selectSubject == true">
     <button
       mat-raised-button
       matTooltip="Add to Favorite"
@@ -21,12 +21,12 @@
       type="button"
       class="btn btn-primary float-right"
       mat-button
-      (click)="SendDataToParent(Result)"
+      (click)="sendSelectToSubParent.emit(Result)"
     >
       <i class="far fa-heart"></i>
     </button>
   </div>
-  <div *ngIf="favSubject">
+  <div *ngIf="favSubject == true">
     <button
       mat-raised-button
       matTooltip="Remove From Favorite"
@@ -34,7 +34,7 @@
       type="button"
       class="btn btn-primary float-right"
       mat-button
-      (click)="SendDataToParent(Result)"
+      (click)="sendFavToSubParent.emit(Result)"
     >
       <i class="far fa-thumbs-down"></i>
     </button>

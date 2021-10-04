@@ -4,6 +4,7 @@
       [Result]="Result"
       [Subchildinput]="Subchild"
       [selectSubject]="true"
+      (sendSelectToSubParent)="SendToParent.emit($event)"
     ></app-subject-select>
   </div>
 </div>
@@ -14,6 +15,7 @@
       [Result]="Result"
       [subChildInputFav]="subchildFav"
       [favSubject]="true"
+      (sendFavToSubParent)="SendToMainParents.emit($event)"
     ></app-subject-select>
 
     <!-- <button
