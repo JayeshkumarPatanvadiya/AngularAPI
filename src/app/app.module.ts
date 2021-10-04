@@ -1,3 +1,4 @@
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +32,26 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { SubjectFavouriteChildComponent } from './subject-favourite-child/subject-favourite-child.component';
 import { SubjectSelectComponent } from './subject-select/subject-select.component';
+import { BootstrapMenuComponent } from './bootstrap-menu/bootstrap-menu.component';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const routes: Routes = [
+  {
+    path: 'Home',
+    component: HomeComponent,
+  },
+  {
+    path: 'CRUDOperation',
+    component: EmployeelistComponent,
+  },
+  {
+    path: 'InputAndOutput',
+    component: SubjectFavouriteComponent,
+  },
+  { path: '', redirectTo: '/Home', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +59,9 @@ import { SubjectSelectComponent } from './subject-select/subject-select.componen
     SubjectFavouriteComponent,
     SubjectFavouriteChildComponent,
     SubjectSelectComponent,
+    BootstrapMenuComponent,
+    HomeComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,15 +83,10 @@ import { SubjectSelectComponent } from './subject-select/subject-select.componen
     MatGridListModule,
     MatInputModule,
     MatChipsModule,
+    [RouterModule.forRoot(routes)],
   ],
-  exports: [],
+  exports: [RouterModule],
   providers: [EmployeeDataServiceService, DatePipe],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-
-
-
-
-  
-}
+export class AppModule {}
