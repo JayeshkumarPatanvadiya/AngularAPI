@@ -6,7 +6,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../_service/authentication.service';
 @Component({
   selector: 'app-employeelist',
   templateUrl: './employeelist.component.html',
@@ -27,7 +28,9 @@ export class EmployeelistComponent implements OnInit {
   constructor(
     private DataServices: EmployeeDataServiceService,
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) {}
 
   @ViewChild(MatPaginator, { static: true })
@@ -154,11 +157,9 @@ export class EmployeelistComponent implements OnInit {
     });
     console.log('res:', this.editProfileForm.getRawValue());
   }
-}
-function compare(
-  a: number | string,
-  b: number | string,
-  isAsc: boolean
-): number {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['']);
+  }
 }

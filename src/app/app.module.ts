@@ -35,6 +35,9 @@ import { SubjectSelectComponent } from './subject-select/subject-select.componen
 import { BootstrapMenuComponent } from './bootstrap-menu/bootstrap-menu.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuardService } from './_service/auth-guard.service';
+import { AuthenticationService } from './_service/authentication.service';
 
 const routes: Routes = [
   {
@@ -43,13 +46,31 @@ const routes: Routes = [
   },
   {
     path: 'CRUDOperation',
+    canActivate: [AuthGuardService],
     component: EmployeelistComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {
+      title: 'Login',
+    },
   },
   {
     path: 'InputAndOutput',
     component: SubjectFavouriteComponent,
   },
-  { path: '', redirectTo: '/Home', pathMatch: 'full' },
+  {
+    path: 'customers',
+    loadChildren: () =>
+      import('./customers/customers.module').then((m) => m.CustomersModule),
+  },
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import('./orders/orders.module').then((m) => m.OrdersModule),
+  },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
@@ -62,10 +83,11 @@ const routes: Routes = [
     BootstrapMenuComponent,
     HomeComponent,
     PageNotFoundComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -83,10 +105,10 @@ const routes: Routes = [
     MatGridListModule,
     MatInputModule,
     MatChipsModule,
-    [RouterModule.forRoot(routes)],
+    RouterModule.forRoot(routes),
   ],
   exports: [RouterModule],
-  providers: [EmployeeDataServiceService, DatePipe],
+  providers: [EmployeeDataServiceService, DatePipe, AuthenticationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
