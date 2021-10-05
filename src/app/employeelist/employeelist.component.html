@@ -1,4 +1,11 @@
-<button (click)="logout()" class="btn btn-danger">Logout</button>
+<button
+  (click)="logout()"
+  class="btn btn-danger float-right pr-3"
+  style="float: right"
+>
+  Logout <i class="fas fa-sign-out-alt"></i>
+</button>
+
 <div>
   <h1 class="d-flex justify-content-center mt-3">List of Records</h1>
   <div *ngIf="!data">

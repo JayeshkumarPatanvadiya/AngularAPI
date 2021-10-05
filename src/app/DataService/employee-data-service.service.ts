@@ -6,7 +6,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 })
 export class EmployeeDataServiceService {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44386/api/Workouts';
+  private accessPointUrl: string = 'http://localhost/AngularAPIs/api/Workouts';
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
@@ -37,20 +37,23 @@ export class EmployeeDataServiceService {
   }
 
   getData() {
-    return this.http.get('https://localhost:44386/api/Workouts'); //https://localhost:44352/ webapi host url
+    return this.http.get('http://localhost/AngularAPIs/api/Workouts'); //https://localhost:44352/ webapi host url
   }
 
   postData(formData: any) {
-    return this.http.post('https://localhost:44386/api/Workouts', formData);
+    return this.http.post(
+      'http://localhost/AngularAPIs/api/Workouts',
+      formData
+    );
   }
 
   putData(id: any, formData: any) {
     return this.http.put(
-      'https://localhost:44386/api/Workouts/' + id,
+      'http://localhost/AngularAPIs/api/Workouts/' + id,
       formData
     );
   }
   deleteData(id: any) {
-    return this.http.delete('https://localhost:44386/api/Workouts/' + id);
+    return this.http.delete('http://localhost/AngularAPIs/api/Workouts/' + id);
   }
 }

@@ -38,14 +38,18 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './_service/auth-guard.service';
 import { AuthenticationService } from './_service/authentication.service';
-
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 const routes: Routes = [
   {
     path: 'Home',
     component: HomeComponent,
   },
   {
-    path: 'CRUDOperation',
+    path: 'crudOperation',
     canActivate: [AuthGuardService],
     component: EmployeelistComponent,
   },
@@ -57,7 +61,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'InputAndOutput',
+    path: 'fav-unfav-subject',
     component: SubjectFavouriteComponent,
   },
   {
@@ -106,9 +110,28 @@ const routes: Routes = [
     MatInputModule,
     MatChipsModule,
     RouterModule.forRoot(routes),
+    SocialLoginModule,
   ],
   exports: [RouterModule],
-  providers: [EmployeeDataServiceService, DatePipe, AuthenticationService],
+  providers: [
+    EmployeeDataServiceService,
+    DatePipe,
+    AuthenticationService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '419048329868-97svpg22s3b8vv6e79sle2uo4tdm62gb.apps.googleusercontent.com'
+            ),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
