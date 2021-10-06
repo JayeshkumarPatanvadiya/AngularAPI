@@ -8,6 +8,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_service/authentication.service';
+import { GoogleAuthDetailsService } from '../_service/google-auth-details.service';
+import {
+  SocialAuthService,
+  GoogleLoginProvider,
+  SocialUser,
+} from 'angularx-social-login';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-employeelist',
   templateUrl: './employeelist.component.html',
@@ -24,13 +31,16 @@ export class EmployeelistComponent implements OnInit {
   //Table Data Source
   dataSource!: MatTableDataSource<any>;
   editProfileForm!: FormGroup;
-
+  googleDetails: any;
   constructor(
     private DataServices: EmployeeDataServiceService,
     private fb: FormBuilder,
     private modalService: NgbModal,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private googleAuthDetailsService: GoogleAuthDetailsService,
+    private socialAuthService: SocialAuthService,
+    private SpinnerService: NgxSpinnerService
   ) {}
 
   @ViewChild(MatPaginator, { static: true })
@@ -39,7 +49,10 @@ export class EmployeelistComponent implements OnInit {
   submitted = false;
   EventValue: any = 'Save';
   pageNumber: any;
+  socialAuthDetails!: any;
+
   ngOnInit(): void {
+    this.SpinnerService.show();
     this.getsortData();
     this.editProfileForm = this.fb.group({
       id: [''],
@@ -48,13 +61,17 @@ export class EmployeelistComponent implements OnInit {
       timeInSeconds: ['', Validators.required],
       action: [''],
     });
+    this.googleAuthDetailsService.socialAuthDetails.subscribe((c) => {
+      this.socialAuthDetails = c;
+      console.log(this.socialAuthDetails);
+    });
   }
+
   getsortData() {
     this.DataServices.get().subscribe(
       (data) => {
         this.data = data;
         //Data Table Data Source and pagination with dynamic data
-
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.paginator = this.paginator;
       },
@@ -160,6 +177,16 @@ export class EmployeelistComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['']);
+    if (this.socialAuthDetails != null) {
+      this.socialLogOut();
+    }
+    this.router.navigate(['home']);
+  }
+
+  socialLogOut(): void {
+    alert('sign out');
+    this.socialAuthService.signOut();
+    localStorage.removeItem('currentUser');
+    // this.router.navigate(['home']);
   }
 }

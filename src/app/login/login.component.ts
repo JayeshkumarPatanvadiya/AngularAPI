@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../_service/authentication.service';
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { BehaviorSubject } from 'rxjs';
 import {
   SocialAuthService,
   GoogleLoginProvider,
   SocialUser,
 } from 'angularx-social-login';
+import { GoogleAuthDetailsService } from '../_service/google-auth-details.service';
 
 @Component({
   selector: 'app-login',
@@ -17,20 +19,21 @@ import {
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted = false;
-
   username!: string;
   password!: string;
   socialUser!: SocialUser;
   isLoggedin!: boolean;
-  title = 'auth-guard-demo';
+
+  googleDetails!: BehaviorSubject<any>;
   constructor(
     private _auth: AuthenticationService,
     private fb: FormBuilder,
     private _router: Router,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private googleAuthDetailsService: GoogleAuthDetailsService
   ) {
     if (this._auth.loggedIn) {
-      this._router.navigate(['crudOperation']);
+      this._router.navigate(['crud-operation']);
     }
   }
 
@@ -43,10 +46,27 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = user != null;
-       console.log(this.socialUser.email);
-       console.log(this.socialUser.photoUrl);
+      this.googleDetails = new BehaviorSubject(this.socialUser);
+      this.nextCount();
+      localStorage.setItem('currentUser', 'loggedin');
+
+      if (!this.socialUser) {
+        this._router.navigate(['login']);
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Login Successfully!!',
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          this._router.navigate(['crud-operation']);
+        });
+      }
     });
-   
+  }
+  nextCount() {
+    this.googleAuthDetailsService.socialAuthDetails.next(this.socialUser);
   }
 
   login(): void {
@@ -59,14 +79,7 @@ export class LoginComponent implements OnInit {
           this.loginForm.controls['password'].value
         )
       ) {
-        this._router.navigate(['crudOperation']);
-        // Swal.fire({
-        //   position: 'top-end',
-        //   icon: 'warning',
-        //   title: 'UserName or Password is Correct!!' + this.socialUser,
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
+        this._router.navigate(['crud-operation']);
       } else
         Swal.fire({
           position: 'top-end',
@@ -75,22 +88,14 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
+      // this._router.navigate(['crud-operation']);
     }
   }
 
   loginWithGoogle(): void {
+    this.submitted = true;
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-    if (!this.socialAuthService.signIn) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: 'UserName or Password is Correct!!' + this.socialUser.email,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      this._router.navigate(['crudOperation']);
-    }
+    this.nextCount();
   }
 
   logOut(): void {
@@ -99,8 +104,5 @@ export class LoginComponent implements OnInit {
 
   get registerFormControl() {
     return this.loginForm.controls;
-  }
-  get username1() {
-    return this.loginForm.value;
   }
 }

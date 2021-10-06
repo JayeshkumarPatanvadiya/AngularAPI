@@ -11,19 +11,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  // currentJogging: {
-  //   id: undefined;
-  //   date: string;
-  //   distanceInMeters: string;
-  //   timeInSeconds: string;
-  // };
   constructor(
     private toastr: ToastsService,
     private employeeDataServiceService: EmployeeDataServiceService,
     private datePipe: DatePipe
-  ) {
-    // this.currentJogging = this.setInitialValuesForJoggingData();
-  }
+  ) {}
 
   data: any;
   EmpForm!: FormGroup;
@@ -112,7 +104,6 @@ export class AppComponent implements OnInit {
   }
   EditData(Data: any) {
     this.EmpForm.controls['id'].setValue(Data.id);
-    // datePipe.transform(Data.date(), 'yyyy-MM-dd');
     this.EmpForm.controls['date'].setValue(
       this.datePipe.transform(Data.date, 'MM-dd-yyyy')
     );

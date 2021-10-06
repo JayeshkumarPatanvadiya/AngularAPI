@@ -11,11 +11,13 @@ import {
 })
 export class AuthGuardService implements CanActivate {
   constructor(private _router: Router) {}
+
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (localStorage.getItem('currentUser')) {
       return true;
+    } else {
+      this._router.navigate(['login']);
+      return false;
     }
-    this._router.navigate(['']);
-    return false;
   }
 }
