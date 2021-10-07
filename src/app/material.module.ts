@@ -10,6 +10,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgModule } from '@angular/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -24,6 +27,8 @@ import { NgModule } from '@angular/core';
     MatGridListModule,
     MatInputModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatTooltipModule,
@@ -37,8 +42,10 @@ import { NgModule } from '@angular/core';
     MatGridListModule,
     MatInputModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [MatDatepickerModule, MatNativeDateModule],
   bootstrap: [],
 })
 export class MaterialModule {}

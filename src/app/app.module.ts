@@ -1,3 +1,5 @@
+import { EmployeeModule } from './employee/employee.module';
+import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
 import { MaterialModule } from './material.module';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -61,6 +63,17 @@ const routes: Routes = [
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
   },
+  {
+    path: 'employeeForm',
+    loadChildren: () =>
+      import('./employee/employee.module').then((m) => m.EmployeeModule),
+  },
+  {
+    path: 'employee',
+    loadChildren: () =>
+      import('./employee/employee.module').then((m) => m.EmployeeModule),
+  },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];

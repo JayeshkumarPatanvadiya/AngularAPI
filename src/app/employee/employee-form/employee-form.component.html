@@ -1,0 +1,118 @@
+<div class="container">
+  <form [formGroup]="form">
+    <div class="form-group row example-form">
+      <h3>Personal Details</h3>
+      <hr />
+      <mat-form-field class="example-full-width col-sm-5" appearance="fill">
+        <mat-label>FirstName</mat-label>
+        <input
+          matInput
+          formControlName="FirstName"
+          placeholder="FirstName"
+          value="Jayesh"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width col-sm-5" appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input
+          matInput
+          formControlName="LastName"
+          placeholder="LastName"
+          value="Patanvadiya"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width col-sm-5" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          formControlName="Email"
+          placeholder="Email"
+          value="Email"
+          type="email"
+        />
+      </mat-form-field>
+      <mat-form-field class="example-full-width col-sm-5" appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input
+          matInput
+          formControlName="Phone"
+          placeholder="Phone"
+          value="Phone"
+          type="tel"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col-sm-5">
+        <mat-label>Choose a date</mat-label>
+        <input matInput formControlName="DOB" [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width col-sm-5" appearance="fill">
+        <mat-label>Age</mat-label>
+        <input type="number" matInput formControlName="Age" placeholder="Age" />
+      </mat-form-field>
+    </div>
+    <h3>Educational Details</h3>
+    <hr />
+
+    <div class="row" formArrayName="Qualifications">
+      <div
+        class="row"
+        *ngFor="
+          let qualification of form.controls.Qualifications.controls;
+          let i = index;
+          last as last
+        "
+        formGroupName="{{ i }}"
+      >
+        <div class="col-sm-3">
+          <label class="col-sm-6">Institute Name</label>
+          <div class="col-sm-8">
+            <input class="form-control" formControlName="InstituteName" />
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <label class="col-sm-4">Degree</label>
+          <div class="col-sm-8">
+            <input class="form-control" formControlName="DegreeName" />
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label class="col-sm-4">Percentage</label>
+          <div class="col-sm-8">
+            <input
+              class="form-control"
+              type="number"
+              formControlName="Percentage"
+            />
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label class="col-sm-8">Passing Year</label>
+          <div class="col-sm-8">
+            <input
+              class="form-control"
+              type="number"
+              formControlName="PassingYear"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <i
+            class="fas fa-trash btn btn-danger p-2 m-2"
+            (click)="RemoveQualification(i)"
+          ></i>
+          <i
+            class="fas fa-plus-square btn btn-primary p-2 m-2"
+            (click)="AddQualification()"
+            *ngIf="last"
+          ></i>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="onFormSubmit()">Submit</button>
+  </form>
+</div>
