@@ -9,7 +9,7 @@ import { EmployeelistComponent } from './employeelist/employeelist.component';
 import { EmployeeDataServiceService } from './DataService/employee-data-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as _ from 'lodash';
 import { ToastrModule } from 'ngx-toastr';
@@ -63,11 +63,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
   },
-  {
-    path: 'employeeForm',
-    loadChildren: () =>
-      import('./employee/employee.module').then((m) => m.EmployeeModule),
-  },
+  // {
+  //   path: 'employeeForm',
+  //   loadChildren: () =>
+  //     import('./employee/employee.module').then((m) => m.EmployeeModule),
+  // },
   {
     path: 'employee',
     loadChildren: () =>
@@ -101,6 +101,7 @@ const routes: Routes = [
     SocialLoginModule,
     MaterialModule,
     NgxSpinnerModule,
+    CommonModule,
   ],
   exports: [RouterModule],
   providers: [

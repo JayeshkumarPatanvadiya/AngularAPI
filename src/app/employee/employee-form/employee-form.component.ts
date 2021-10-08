@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -18,31 +19,56 @@ import { MatInputModule } from '@angular/material/input';
 export class EmployeeFormComponent {
   form: any;
   dataSource: any = [];
-  angForm = new FormGroup({
-    names: new FormArray([
-      new FormControl('', Validators.required),
-      new FormControl('', Validators.required),
-    ]),
-  });
+  employeeId: any;
+  qualificationFormIndex: number | undefined;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.CreateForm();
-  }
-
-  CreateForm() {
     this.form = this.fb.group({
+      id: [Math.random().toString(36).substr(2, 3)],
       FirstName: ['', Validators.required],
       LastName: ['', [Validators.required]],
       Email: ['', [Validators.required]],
-
       Phone: ['', [Validators.required]],
       DOB: ['', [Validators.required]],
       Age: ['', [Validators.required]],
-
       Qualifications: this.fb.array([this.QualificationForm()]),
     });
+
+    this.employeeId = this.route.snapshot.params['id'];
+    if (this.employeeId != null) {
+      this.EditForm();
+    }
+    // notice below change, we need to mark it as an formArray
+    expense_expense_categories_attributes: this.fb.array([]);
+  }
+
+  CreateForm() {}
+
+  EditForm() {
+    var employeesData = JSON.parse(
+      localStorage.getItem('employeesList') || '{}'
+    );
+
+    var filter_array = employeesData.find((x: any) => x.id == this.employeeId);
+    console.log(filter_array);
+    this.qualificationFormIndex = filter_array.Qualifications.length;
+
+    for (let control of filter_array.Qualifications) {
+      var numberOfFormArray = <FormArray>this.form.controls.Qualifications;
+      numberOfFormArray.push(this.QualificationForm());
+    }
+
+    if (this.employeeId != null) {
+      this.form.patchValue({
+        ...filter_array,
+      });
+    }
   }
 
   QualificationForm() {
@@ -50,7 +76,6 @@ export class EmployeeFormComponent {
       InstituteName: ['', Validators.required],
       DegreeName: ['', Validators.required],
       Percentage: ['', Validators.required],
-
       PassingYear: ['', [Validators.required]],
     });
   }
@@ -68,22 +93,29 @@ export class EmployeeFormComponent {
       _semesters.removeAt(index);
     }
   }
-  get names(): FormArray {
-    return this.angForm.get('_semesters') as FormArray;
-  }
-  onFormSubmit(): void {
-    // let retrievedData = JSON.parse(
-    //   localStorage.getItem('employeesList') || '[]'
-    // );
-    // console.log(retrievedData, 'retrievedData');
-    localStorage.setItem('employeesList', JSON.stringify(this.form.value));
-    // let formdata = this.form.value;
-    // console.log(formdata, 'formdata');
-    // const test = retrievedData.push(formdata);
-    // console.log(test, 'test');
-    // const jsonData = JSON.stringify(test);
-    // localStorage.setItem('employeesList', jsonData);
 
-    //console.log(jsonData);
+  onFormSubmit(): void {
+    if (this.form.valid) {
+      // localStorage.setItem('employeesList', JSON.stringify(this.form.value));
+      var emploeeList = [];
+      // Parse the serialized data back into an aray of objects
+      var employeeListLocalStorage = localStorage.getItem('employeesList');
+      emploeeList = JSON.parse(employeeListLocalStorage || '{}');
+      // Push the new data (whether it be an object or anything else) onto the array
+
+      emploeeList.push(this.form.value);
+
+      // Re-serialize the array back into a string and store it in localStorage
+      localStorage.setItem('employeesList', JSON.stringify(emploeeList));
+      console.log(emploeeList);
+      this.router.navigate(['employee']);
+    } else {
+      alert('something went wrong!!!');
+    }
+  }
+  onFormUpdate(employeeId: any) {
+    // alert(employeeId);
+    this.EditForm();
+    this.router.navigate(['employee']);
   }
 }

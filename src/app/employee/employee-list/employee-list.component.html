@@ -1,19 +1,94 @@
-<table>
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let people of employeeList">
-      <td>{{ people.FirstName }}</td>
-      <td>{{ people.LastName }}</td>
-      <td>{{ people.Age }}</td>
-    </tr>
-  </tbody>
+<h1 class="text-center">Employee List</h1>
+
+<a
+  routerLink="employeeForm"
+  routerLinkActive="router-link-active"
+  class="btn btn-primary float-right m-3"
+>
+  <i class="fas fa-plus"></i>
+</a>
+
+<table
+  mat-table
+  [dataSource]="dataSource"
+  multiTemplateDataRows
+  class="mat-elevation-z8"
+>
+  <ng-container
+    matColumnDef="{{ column }}"
+    *ngFor="let column of columnsToDisplay; let i = index"
+  >
+    <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+    <td mat-cell *matCellDef="let element; let rowindex = dataIndex">
+      <ng-container *ngIf="column == 'DOB'">
+        {{ element.DOB | date }}
+      </ng-container>
+
+      <ng-container *ngIf="column == 'Action'">
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="startEdit(rowindex)"
+          class="btn btn-primary"
+          type="button"
+        >
+          <i class="fas fa-edit"></i>
+        </button>
+        |
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="RemoveEmployee(rowindex, element.Phone)"
+          class="btn btn-warning"
+          type="button"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="column != 'DOB'">
+        {{ element[column] }}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [attr.colspan]="columnsToDisplay.length"
+    >
+      <div
+        class="example-element-detail"
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+      >
+        <div class="example-element-diagram">
+          <div class="example-element-position">
+            Phone Number: {{ element.Phone }}
+          </div>
+          <div class="example-element-symbol">Age : {{ element.Age }}</div>
+          <div class="example-element-name">{{ element.name }}</div>
+          <div class="example-element-weight">{{ element.weight }}</div>
+        </div>
+        <div class="example-element-description">
+          {{ element.description }}
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr
+    mat-row
+    *matRowDef="let element; columns: columnsToDisplay"
+    class="example-element-row"
+    [class.example-expanded-row]="expandedElement === element"
+    (click)="expandedElement = expandedElement === element ? null : element"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetail']"
+    class="example-detail-row"
+  ></tr>
 </table>
-<p>
-  {{ employeeList.DOB }}
-</p>

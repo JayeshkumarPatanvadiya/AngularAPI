@@ -1,3 +1,16 @@
+<a
+  routerLink="/employee"
+  routerLinkActive="router-link-active"
+  class="btn btn-primary float-right m-3"
+>
+  <i class="fas fa-backward"></i>
+</a>
+
+<h2>
+  <span *ngIf="!this.employeeId">Insert </span>
+  <span *ngIf="this.employeeId">Update </span> Employee Details
+</h2>
+
 <div class="container">
   <form [formGroup]="form">
     <div class="form-group row example-form">
@@ -5,21 +18,11 @@
       <hr />
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
         <mat-label>FirstName</mat-label>
-        <input
-          matInput
-          formControlName="FirstName"
-          placeholder="FirstName"
-          value="Jayesh"
-        />
+        <input matInput formControlName="FirstName" placeholder="FirstName" />
       </mat-form-field>
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
         <mat-label>Last name</mat-label>
-        <input
-          matInput
-          formControlName="LastName"
-          placeholder="LastName"
-          value="Patanvadiya"
-        />
+        <input matInput formControlName="LastName" placeholder="LastName" />
       </mat-form-field>
 
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
@@ -28,7 +31,6 @@
           matInput
           formControlName="Email"
           placeholder="Email"
-          value="Email"
           type="email"
         />
       </mat-form-field>
@@ -38,8 +40,7 @@
           matInput
           formControlName="Phone"
           placeholder="Phone"
-          value="Phone"
-          type="tel"
+          type="number"
         />
       </mat-form-field>
 
@@ -68,38 +69,43 @@
         "
         formGroupName="{{ i }}"
       >
-        <div class="col-sm-3">
-          <label class="col-sm-6">Institute Name</label>
-          <div class="col-sm-8">
-            <input class="form-control" formControlName="InstituteName" />
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <label class="col-sm-4">Degree</label>
-          <div class="col-sm-8">
-            <input class="form-control" formControlName="DegreeName" />
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <label class="col-sm-4">Percentage</label>
-          <div class="col-sm-8">
-            <input
-              class="form-control"
-              type="number"
-              formControlName="Percentage"
-            />
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <label class="col-sm-8">Passing Year</label>
-          <div class="col-sm-8">
-            <input
-              class="form-control"
-              type="number"
-              formControlName="PassingYear"
-            />
-          </div>
-        </div>
+        <mat-form-field class="example-full-width col-sm-3" appearance="fill">
+          <mat-label>Institute Name</mat-label>
+          <input
+            matInput
+            formControlName="InstituteName"
+            placeholder="Institute Name"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width col-sm-3" appearance="fill">
+          <mat-label>Degree Name</mat-label>
+          <input
+            matInput
+            formControlName="DegreeName"
+            placeholder="Degree Name"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width col-sm-2" appearance="fill">
+          <mat-label>Percentage</mat-label>
+          <input
+            matInput
+            formControlName="Percentage"
+            placeholder="Percentage"
+            type="number"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width col-sm-2" appearance="fill">
+          <mat-label>Passing Year</mat-label>
+          <input
+            matInput
+            formControlName="PassingYear"
+            placeholder="PassingYear"
+            type="number"
+          />
+        </mat-form-field>
         <div class="col">
           <i
             class="fas fa-trash btn btn-danger p-2 m-2"
@@ -113,6 +119,20 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="onFormSubmit()">Submit</button>
+    <button
+      *ngIf="!this.employeeId"
+      class="btn btn-primary"
+      (click)="onFormSubmit()"
+    >
+      Submit
+    </button>
+
+    <button
+      *ngIf="this.employeeId"
+      class="btn btn-primary"
+      (click)="onFormUpdate(this.employeeId)"
+    >
+      Update
+    </button>
   </form>
 </div>

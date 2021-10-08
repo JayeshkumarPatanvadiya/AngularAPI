@@ -11,8 +11,7 @@ import { AuthenticationService } from '../_service/authentication.service';
 import { GoogleAuthDetailsService } from '../_service/google-auth-details.service';
 import {
   SocialAuthService,
-  GoogleLoginProvider,
-  SocialUser,
+
 } from 'angularx-social-login';
 import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
@@ -28,7 +27,7 @@ export class EmployeelistComponent implements OnInit {
     'timeInSeconds',
     'action',
   ];
-  //Table Data Source
+
   dataSource!: MatTableDataSource<any>;
   editProfileForm!: FormGroup;
   googleDetails: any;
