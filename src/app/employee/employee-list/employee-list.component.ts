@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
-import { formatDate } from '@angular/common';
 import {
   animate,
   state,

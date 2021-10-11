@@ -1,13 +1,13 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 @Directive({
-  selector: '.ccCardHover',
+  selector: '[appHighlight]',
 })
 export class HighlightDirective {
-  constructor(private eleRef: ElementRef, private renderer: Renderer2) {
-    eleRef.nativeElement.style.background = 'red';
-
-    renderer.setElementStyle(eleRef.nativeElement, 'backgroundColor', 'gray');
+  constructor(private eleRef: ElementRef) {
+    // eleRef.nativeElement.style.background = 'red';
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.eleRef.nativeElement.style.background = 'blue';
+  }
 }

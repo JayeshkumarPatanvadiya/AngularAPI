@@ -31,6 +31,12 @@
       <ng-container *ngIf="column == 'DOB'">
         {{ element.DOB | date }}
       </ng-container>
+      <ng-container *ngIf="column == 'LastName'">
+        {{ element.LastName | uppercase }}
+      </ng-container>
+      <ng-container *ngIf="column == 'Email'">
+        {{ element.Email | lowercase }}
+      </ng-container>
 
       <ng-container *ngIf="column == 'Action'">
         <button
@@ -54,7 +60,9 @@
         </button>
       </ng-container>
 
-      <ng-container *ngIf="column != 'DOB'">
+      <ng-container
+        *ngIf="column != 'DOB' && column != 'LastName' && column != 'Email'"
+      >
         {{ element[column] }}
       </ng-container>
     </td>

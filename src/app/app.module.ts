@@ -85,6 +85,7 @@ const routes: Routes = [
     HomeComponent,
     PageNotFoundComponent,
     LoginComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +100,7 @@ const routes: Routes = [
     MaterialModule,
     NgxSpinnerModule,
     CommonModule,
-    // HighlightDirective,
+    
   ],
   exports: [RouterModule],
   providers: [
