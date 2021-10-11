@@ -32,6 +32,7 @@ import {
   SocialAuthServiceConfig,
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { HighlightDirective } from './custom-directory/app-highlight.directive';
 const routes: Routes = [
   {
     path: 'home',
@@ -63,11 +64,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
   },
-  // {
-  //   path: 'employeeForm',
-  //   loadChildren: () =>
-  //     import('./employee/employee.module').then((m) => m.EmployeeModule),
-  // },
+
   {
     path: 'employee',
     loadChildren: () =>
@@ -102,6 +99,7 @@ const routes: Routes = [
     MaterialModule,
     NgxSpinnerModule,
     CommonModule,
+    // HighlightDirective,
   ],
   exports: [RouterModule],
   providers: [

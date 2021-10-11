@@ -49,6 +49,7 @@ export class EmployeelistComponent implements OnInit {
   EventValue: any = 'Save';
   pageNumber: any;
   socialAuthDetails!: any;
+  
 
   ngOnInit(): void {
     this.SpinnerService.show();

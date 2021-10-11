@@ -59,17 +59,6 @@ export class EmployeeListComponent implements OnInit {
 
     console.log(this.editEmployeeData);
     this.router.navigate(['employee/employeeForm/', employeeId]);
-
-    // // iterate over them
-    // for (const index in this.dataSource) {
-    //   if (index.indexOf('rowindex')) {
-    //     // fetch value for corresponding key
-    //     var editRecord = this.dataSource[rowindex];
-    //     // console.log(editRecord);
-    //     var arrObject = new Array();
-    //     arrObject[0] = editRecord; // array now has one element
-    //   }
-    // }
   }
   RemoveEmployee(rowindex: any, Phone: any) {
     console.log(this.dataSource);

@@ -6,7 +6,7 @@
   <i class="fas fa-backward"></i>
 </a>
 
-<h2>
+<h2 class="text-center">
   <span *ngIf="!this.employeeId">Insert </span>
   <span *ngIf="this.employeeId">Update </span> Employee Details
 </h2>
@@ -17,43 +17,79 @@
       <h3>Personal Details</h3>
       <hr />
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>FirstName</mat-label>
+        <mat-label>FirstName*</mat-label>
         <input matInput formControlName="FirstName" placeholder="FirstName" />
+        <mat-error *ngIf="form.get('FirstName').hasError('required')">
+          FirstName required.
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>Last name</mat-label>
+        <mat-label>Last name*</mat-label>
         <input matInput formControlName="LastName" placeholder="LastName" />
+        <mat-error *ngIf="form.get('LastName').hasError('required')">
+          LastName required.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>Email</mat-label>
+        <mat-label>Email*</mat-label>
         <input
           matInput
           formControlName="Email"
           placeholder="Email"
           type="email"
+          email="true"
         />
+        <mat-error *ngIf="form.get('Email').hasError('required')">
+          Email required.
+        </mat-error>
+        <span
+          class="text-danger"
+          *ngIf="
+            form.controls['Email'].hasError('pattern') &&
+            (form.controls['Email'].dirty || form.controls['Email'].touched)
+          "
+          >Please enter valid email address</span
+        >
       </mat-form-field>
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>Phone</mat-label>
+        <mat-label>Enter Phone* ex . +91989898989 </mat-label>
         <input
           matInput
           formControlName="Phone"
           placeholder="Phone"
-          type="number"
+          type="tel"
+          tel="true"
         />
+        <mat-error *ngIf="form.get('Phone').hasError('required')">
+          Phone Number is required.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="col-sm-5">
-        <mat-label>Choose a date</mat-label>
-        <input matInput formControlName="DOB" [matDatepicker]="picker" />
+        <mat-label>Choose a date*</mat-label>
+        <input
+          matInput
+          [max]="maxDate"
+          formControlName="DOB"
+          [matDatepicker]="picker"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.get('DOB').hasError('required')">
+          Date of Birth date is required.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>Age</mat-label>
-        <input type="number" matInput formControlName="Age" placeholder="Age" />
+        <mat-label>Your Age</mat-label>
+        <input
+          type="number"
+          [disabled]="true"
+          matInput
+          formControlName="Age"
+          placeholder="Your Age"
+        />
       </mat-form-field>
     </div>
     <h3>Educational Details</h3>
@@ -70,41 +106,77 @@
         formGroupName="{{ i }}"
       >
         <mat-form-field class="example-full-width col-sm-3" appearance="fill">
-          <mat-label>Institute Name</mat-label>
+          <mat-label>Institute Name*</mat-label>
           <input
             matInput
             formControlName="InstituteName"
             placeholder="Institute Name"
           />
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i]
+                .get('InstituteName')
+                .hasError('required')
+            "
+          >
+            Institute Name is required.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width col-sm-3" appearance="fill">
-          <mat-label>Degree Name</mat-label>
+          <mat-label>Degree Name*</mat-label>
           <input
             matInput
             formControlName="DegreeName"
             placeholder="Degree Name"
           />
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i]
+                .get('DegreeName')
+                .hasError('required')
+            "
+          >
+            Degree Name is required.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width col-sm-2" appearance="fill">
-          <mat-label>Percentage</mat-label>
+          <mat-label>Percentage*</mat-label>
           <input
             matInput
             formControlName="Percentage"
             placeholder="Percentage"
             type="number"
           />
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i]
+                .get('Percentage')
+                .hasError('required')
+            "
+          >
+            Percentage is required.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width col-sm-2" appearance="fill">
-          <mat-label>Passing Year</mat-label>
+          <mat-label>Passing Year*</mat-label>
           <input
             matInput
             formControlName="PassingYear"
             placeholder="PassingYear"
             type="number"
           />
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i]
+                .get('PassingYear')
+                .hasError('required')
+            "
+          >
+            Passing Year is required.
+          </mat-error>
         </mat-form-field>
         <div class="col">
           <i
@@ -121,7 +193,7 @@
     </div>
     <button
       *ngIf="!this.employeeId"
-      class="btn btn-primary"
+      class="btn btn-primary mt-3"
       (click)="onFormSubmit()"
     >
       Submit

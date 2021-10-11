@@ -32,7 +32,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding: 8px;
   font-weight: lighter;
   margin: 8px 0;
-  height: 104px;
+  height: 100%;
 }
 
 .example-element-symbol {
@@ -47,4 +47,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+
+.mat-header-cell {
+  font-size: 16px !important;
+  font-weight: 500;
 }
