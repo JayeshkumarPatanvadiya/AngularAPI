@@ -30,19 +30,8 @@ export class EmployeeFormComponent {
       id: [Math.random().toString(36).substr(2, 3)],
       FirstName: ['', Validators.required],
       LastName: ['', [Validators.required]],
-      Email: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(
-            /^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/
-          ),
-        ]),
-      ],
-      Phone: [
-        '',
-        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')],
-      ],
+      Email: ['', [Validators.required, Validators.email]],
+      Phone: ['', [Validators.required, Validators.minLength(12)]],
       DOB: ['', [Validators.required]],
       Age: [this.calAge, [Validators.required]],
       Qualifications: this.fb.array([this.QualificationForm()]),
@@ -98,7 +87,15 @@ export class EmployeeFormComponent {
     return this.fb.group({
       InstituteName: ['', Validators.required],
       DegreeName: ['', Validators.required],
-      Percentage: ['', Validators.required],
+      Percentage: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          ,
+          Validators.maxLength(2),
+        ],
+      ],
       PassingYear: ['', [Validators.required]],
     });
   }
@@ -119,18 +116,26 @@ export class EmployeeFormComponent {
 
   onFormSubmit(): void {
     if (this.form.valid) {
-      // localStorage.setItem('employeesList', JSON.stringify(this.form.value));
       var emploeeList = [];
-      // Parse the serialized data back into an aray of objects
-      var employeeListLocalStorage = localStorage.getItem('employeesList');
-      emploeeList = JSON.parse(employeeListLocalStorage || '{}');
+      if (localStorage.getItem('employeesList')) {
+        // localStorage.setItem('employeesList', JSON.stringify(this.form.value));
 
-      // Push the new data (whether it be an object or anything else) onto the array
-      emploeeList.push(this.form.getRawValue());
+        // Parse the serialized data back into an aray of objects
+        var employeeListLocalStorage = localStorage.getItem('employeesList');
+        emploeeList = JSON.parse(employeeListLocalStorage || '{}');
 
-      // Re-serialize the array back into a string and store it in localStorage
-      localStorage.setItem('employeesList', JSON.stringify(emploeeList));
+        // Push the new data (whether it be an object or anything else) onto the array
+        emploeeList.push(this.form.getRawValue());
+
+        // Re-serialize the array back into a string and store it in localStorage
+        localStorage.setItem('employeesList', JSON.stringify(emploeeList));
+      } else {
+        emploeeList.push(this.form.getRawValue());
+        localStorage.setItem('employeesList', JSON.stringify(emploeeList));
+      }
       this.router.navigate(['employee']);
+    } else {
+      alert('Something Went Wrong');
     }
   }
   onFormUpdate(employeeId: any) {

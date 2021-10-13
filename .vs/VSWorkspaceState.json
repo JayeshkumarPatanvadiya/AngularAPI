@@ -3,10 +3,10 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\DataService",
-    "\\src\\app\\employee-add",
+    "\\src\\app\\employee",
     "\\src\\app\\employeelist",
-    "\\src\\app\\Models"
+    "\\src\\app\\employee\\employee-form"
   ],
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

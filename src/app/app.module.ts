@@ -1,5 +1,3 @@
-import { EmployeeModule } from './employee/employee.module';
-import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
 import { MaterialModule } from './material.module';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -100,7 +98,6 @@ const routes: Routes = [
     MaterialModule,
     NgxSpinnerModule,
     CommonModule,
-    
   ],
   exports: [RouterModule],
   providers: [

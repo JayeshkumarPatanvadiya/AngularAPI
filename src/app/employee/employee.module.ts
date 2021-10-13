@@ -13,9 +13,10 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { PhoneFormatPipe } from './phone-format.pipe';
 
 @NgModule({
-  declarations: [EmployeeFormComponent, EmployeeListComponent],
+  declarations: [EmployeeFormComponent, EmployeeListComponent, PhoneFormatPipe],
   imports: [
     CommonModule,
     FormsModule,

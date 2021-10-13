@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import {
   animate,
   state,
@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
   ],
 })
 export class EmployeeListComponent implements OnInit {
+  phoneNumber = '';
   employeeList: any;
   dataSource: any;
   rowindex: any;

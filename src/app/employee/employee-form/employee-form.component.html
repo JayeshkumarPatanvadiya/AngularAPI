@@ -45,15 +45,12 @@
         </mat-error>
         <span
           class="text-danger"
-          *ngIf="
-            form.controls['Email'].hasError('pattern') &&
-            (form.controls['Email'].dirty || form.controls['Email'].touched)
-          "
+          *ngIf="form.controls['Email'].dirty || form.controls['Email'].touched"
           >Please enter valid email address</span
         >
       </mat-form-field>
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>Enter Phone* ex . +91989898989 </mat-label>
+        <mat-label>Enter Phone* ex . 91-989898989 </mat-label>
         <input
           matInput
           formControlName="Phone"
@@ -63,6 +60,15 @@
         />
         <mat-error *ngIf="form.get('Phone').hasError('required')">
           Phone Number is required.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.controls['Phone'].errors?.maxlength ||
+            form.controls['Phone'].dirty ||
+            form.controls['Phone'].touched
+          "
+        >
+          Phone Number must be 10 character
         </mat-error>
       </mat-form-field>
 
@@ -157,6 +163,17 @@
             "
           >
             Percentage is required.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i].get('Percentage').errors
+                ?.maxlength ||
+              form.controls.Qualifications.controls[i].get('Percentage')
+                .dirty ||
+              form.controls.Qualifications.controls[i].get('Percentage').touched
+            "
+          >
+            Percentage must be 2 character
           </mat-error>
         </mat-form-field>
 
