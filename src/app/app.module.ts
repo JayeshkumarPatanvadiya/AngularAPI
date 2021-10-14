@@ -31,6 +31,8 @@ import {
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { HighlightDirective } from './custom-directory/app-highlight.directive';
+import { environment } from './../environments/environment';
+
 const routes: Routes = [
   {
     path: 'home',

@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav
+  [style.backgroundColor]="backgroundColor"
+  class="navbar navbar-expand-lg navbar-light bg-light"
+>
   <a class="navbar-brand" href="#"><i class="display-2 fab fa-angular"></i></a>
   <button
     class="navbar-toggler"
@@ -49,6 +52,11 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="employee" routerLinkActive="active"
           >Employees List</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost/ECOMMERCE" target="_blank"
+          >Ecomm Project</a
         >
       </li>
     </ul>
