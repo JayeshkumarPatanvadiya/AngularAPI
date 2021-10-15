@@ -43,9 +43,7 @@
         <mat-error *ngIf="form.get('Email').hasError('required')">
           Email required.
         </mat-error>
-        <span
-          class="text-danger"
-          *ngIf="form.controls['Email'].dirty || form.controls['Email'].touched"
+        <span class="text-danger" *ngIf="form.controls['Email'].errors?.email"
           >Please enter valid email address</span
         >
       </mat-form-field>
@@ -56,7 +54,7 @@
           formControlName="Phone"
           placeholder="Phone"
           type="tel"
-          tel="true"
+          pattern="[1-9]{1}[0-9]{9}"
         />
         <mat-error *ngIf="form.get('Phone').hasError('required')">
           Phone Number is required.
@@ -64,8 +62,8 @@
         <mat-error
           *ngIf="
             form.controls['Phone'].errors?.maxlength ||
-            form.controls['Phone'].dirty ||
-            form.controls['Phone'].touched
+            form.controls['Phone'].errors?.minLength ||
+            form.controls['Phone'].errors?.pattern
           "
         >
           Phone Number must be 10 character
@@ -107,7 +105,8 @@
         *ngFor="
           let qualification of form.controls.Qualifications.controls;
           let i = index;
-          last as last
+          last as last;
+          first as isFirst
         "
         formGroupName="{{ i }}"
       >
@@ -167,10 +166,7 @@
           <mat-error
             *ngIf="
               form.controls.Qualifications.controls[i].get('Percentage').errors
-                ?.maxlength ||
-              form.controls.Qualifications.controls[i].get('Percentage')
-                .dirty ||
-              form.controls.Qualifications.controls[i].get('Percentage').touched
+                ?.pattern
             "
           >
             Percentage must be 2 character
@@ -194,12 +190,30 @@
           >
             Passing Year is required.
           </mat-error>
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i].get('PassingYear').errors
+                ?.maxlength
+            "
+          >
+            PassingYear must be 4 character
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.controls.Qualifications.controls[i].get('PassingYear').errors
+            "
+          >
+            Passing Year not greater than {{ currentYear }}.
+          </mat-error>
         </mat-form-field>
         <div class="col">
-          <i
-            class="fas fa-trash btn btn-danger p-2 m-2"
-            (click)="RemoveQualification(i)"
-          ></i>
+          <ng-container *ngIf="!isFirst">
+            <i
+              class="fas fa-trash btn btn-danger p-2 m-2"
+              (click)="RemoveQualification(i)"
+            ></i>
+          </ng-container>
+
           <i
             class="fas fa-plus-square btn btn-primary p-2 m-2"
             (click)="AddQualification()"

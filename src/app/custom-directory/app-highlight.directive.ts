@@ -3,9 +3,7 @@ import { Directive, ElementRef, OnInit } from '@angular/core';
   selector: '[appHighlight]',
 })
 export class HighlightDirective {
-  constructor(private eleRef: ElementRef) {
-    // eleRef.nativeElement.style.background = 'red';
-  }
+  constructor(private eleRef: ElementRef) {}
 
   ngOnInit() {
     this.eleRef.nativeElement.style.background = 'blue';

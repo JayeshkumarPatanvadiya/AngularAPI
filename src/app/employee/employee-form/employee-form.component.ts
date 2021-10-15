@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -15,7 +20,7 @@ export class EmployeeFormComponent {
   age: number | undefined;
   calAge: number | undefined;
   maxDate: Date;
-
+  currentYear: any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -31,13 +36,22 @@ export class EmployeeFormComponent {
       FirstName: ['', Validators.required],
       LastName: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
-      Phone: ['', [Validators.required, Validators.minLength(12)]],
+      Phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+        ],
+      ],
       DOB: ['', [Validators.required]],
       Age: [this.calAge, [Validators.required]],
       Qualifications: this.fb.array([this.QualificationForm()]),
     });
 
     this.form.controls['Age'].disable(); // age calculate based on Date of birth
+    this.currentYear = new Date().getFullYear();
 
     this.employeeId = this.route.snapshot.params['id']; // route get id from list component
     if (this.employeeId != null) {
@@ -49,7 +63,6 @@ export class EmployeeFormComponent {
   onValueChanges(): void {
     this.form.get('DOB').valueChanges.subscribe((val: any) => {
       this.age = val; //bind age with DOB
-
       if (this.age) {
         const convertAge = new Date(this.age);
         const timeDiff = Math.abs(Date.now() - convertAge.getTime());
@@ -92,11 +105,14 @@ export class EmployeeFormComponent {
         [
           Validators.required,
           Validators.minLength(2),
-          ,
           Validators.maxLength(2),
+          Validators.pattern('^([1-9][0-9]?)$'),
         ],
       ],
-      PassingYear: ['', [Validators.required]],
+      PassingYear: [
+        '',
+        [Validators.required, , Validators.minLength(4), this.PassingYearCheck],
+      ],
     });
   }
 
@@ -135,7 +151,7 @@ export class EmployeeFormComponent {
       }
       this.router.navigate(['employee']);
     } else {
-      alert('Something Went Wrong');
+      this.form.markAllAsTouched();
     }
   }
   onFormUpdate(employeeId: any) {
@@ -169,5 +185,19 @@ export class EmployeeFormComponent {
       const timeDiff = Math.abs(Date.now() - convertAge.getTime());
       this.calAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
     }
+  }
+
+  PassingYearCheck(passingYear: FormControl) {
+    let year = passingYear.value;
+    let currentyear = new Date().getFullYear();
+    let yearCal = currentyear - year;
+    console.log(yearCal);
+    if (yearCal < 0) {
+      console.log('>=0', yearCal);
+      return {
+        passingYear: false,
+      };
+    }
+    return null;
   }
 }
