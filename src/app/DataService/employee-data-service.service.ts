@@ -6,11 +6,10 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 })
 export class EmployeeDataServiceService {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'http://localhost/AngularAPIs/api/Workouts';
+  private accessPointUrl: string = 'https://localhost:44386/api/Workouts';
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
-      // 'Cache-Control': 'no-cache',
     });
   }
 

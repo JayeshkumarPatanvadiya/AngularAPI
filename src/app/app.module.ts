@@ -32,6 +32,8 @@ import {
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { HighlightDirective } from './custom-directory/app-highlight.directive';
 import { environment } from './../environments/environment';
+import { UserRegComponent } from './user-reg/user-reg.component';
+import { UserLoginComponent } from './user-login/user-login.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,20 @@ const routes: Routes = [
     component: LoginComponent,
     data: {
       title: 'Login',
+    },
+  },
+  {
+    path: 'user-reg',
+    component: UserRegComponent,
+    data: {
+      title: 'user-reg',
+    },
+  },
+  {
+    path: 'user-login',
+    component: UserLoginComponent,
+    data: {
+      title: 'user-login',
     },
   },
   {
@@ -86,6 +102,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     LoginComponent,
     HighlightDirective,
+    UserRegComponent,
+    UserLoginComponent,
   ],
   imports: [
     BrowserModule,
