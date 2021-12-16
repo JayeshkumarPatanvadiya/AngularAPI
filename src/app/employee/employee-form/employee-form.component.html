@@ -1,8 +1,4 @@
-<a
-  routerLink="/employee"
-  routerLinkActive="router-link-active"
-  class="btn btn-primary float-right m-3"
->
+<a routerLink="/employee" routerLinkActive="router-link-active" class="btn btn-primary float-right m-3">
   <i class="fas fa-backward"></i>
 </a>
 
@@ -33,51 +29,30 @@
 
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
         <mat-label>Email*</mat-label>
-        <input
-          matInput
-          formControlName="Email"
-          placeholder="Email"
-          type="email"
-          email="true"
-        />
+        <input matInput formControlName="Email" placeholder="Email" type="email" email="true" />
         <mat-error *ngIf="form.get('Email').hasError('required')">
           Email required.
         </mat-error>
-        <span class="text-danger" *ngIf="form.controls['Email'].errors?.email"
-          >Please enter valid email address</span
-        >
+        <span class="text-danger" *ngIf="form.controls['Email'].errors?.email">Please enter valid email address</span>
       </mat-form-field>
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
-        <mat-label>Enter Phone* ex . 91-989898989 </mat-label>
-        <input
-          matInput
-          formControlName="Phone"
-          placeholder="Phone"
-          type="tel"
-          pattern="[1-9]{1}[0-9]{9}"
-        />
+        <mat-label>Enter Phone* ex . 989898989 </mat-label>
+        <input matInput formControlName="Phone" placeholder="Phone" type="tel" pattern="[1-9]{1}[0-9]{9}" />
         <mat-error *ngIf="form.get('Phone').hasError('required')">
           Phone Number is required.
         </mat-error>
-        <mat-error
-          *ngIf="
+        <mat-error *ngIf="
             form.controls['Phone'].errors?.maxlength ||
             form.controls['Phone'].errors?.minLength ||
             form.controls['Phone'].errors?.pattern
-          "
-        >
+          ">
           Phone Number must be 10 character
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="col-sm-5">
         <mat-label>Choose a date*</mat-label>
-        <input
-          matInput
-          [max]="maxDate"
-          formControlName="DOB"
-          [matDatepicker]="picker"
-        />
+        <input matInput [max]="maxDate" formControlName="DOB" [matDatepicker]="picker" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="form.get('DOB').hasError('required')">
@@ -87,154 +62,97 @@
 
       <mat-form-field class="example-full-width col-sm-5" appearance="fill">
         <mat-label>Your Age</mat-label>
-        <input
-          type="number"
-          [disabled]="true"
-          matInput
-          formControlName="Age"
-          placeholder="Your Age"
-        />
+        <input type="number" [disabled]="true" matInput formControlName="Age" placeholder="Your Age" />
       </mat-form-field>
     </div>
     <h3>Educational Details</h3>
     <hr />
 
     <div class="row" formArrayName="Qualifications">
-      <div
-        class="row"
-        *ngFor="
+      <div class="row" *ngFor="
           let qualification of form.controls.Qualifications.controls;
           let i = index;
           last as last;
           first as isFirst
-        "
-        formGroupName="{{ i }}"
-      >
+        " formGroupName="{{ i }}">
         <mat-form-field class="example-full-width col-sm-3" appearance="fill">
           <mat-label>Institute Name*</mat-label>
-          <input
-            matInput
-            formControlName="InstituteName"
-            placeholder="Institute Name"
-          />
-          <mat-error
-            *ngIf="
+          <input matInput formControlName="InstituteName" placeholder="Institute Name" />
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i]
                 .get('InstituteName')
                 .hasError('required')
-            "
-          >
+            ">
             Institute Name is required.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width col-sm-3" appearance="fill">
           <mat-label>Degree Name*</mat-label>
-          <input
-            matInput
-            formControlName="DegreeName"
-            placeholder="Degree Name"
-          />
-          <mat-error
-            *ngIf="
+          <input matInput formControlName="DegreeName" placeholder="Degree Name" />
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i]
                 .get('DegreeName')
                 .hasError('required')
-            "
-          >
+            ">
             Degree Name is required.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width col-sm-2" appearance="fill">
           <mat-label>Percentage*</mat-label>
-          <input
-            matInput
-            formControlName="Percentage"
-            placeholder="Percentage"
-            type="number"
-          />
-          <mat-error
-            *ngIf="
+          <input matInput formControlName="Percentage" placeholder="Percentage" type="number" />
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i]
                 .get('Percentage')
                 .hasError('required')
-            "
-          >
+            ">
             Percentage is required.
           </mat-error>
-          <mat-error
-            *ngIf="
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i].get('Percentage').errors
                 ?.pattern
-            "
-          >
+            ">
             Percentage must be 2 character
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width col-sm-2" appearance="fill">
           <mat-label>Passing Year*</mat-label>
-          <input
-            matInput
-            formControlName="PassingYear"
-            placeholder="PassingYear"
-            type="number"
-          />
-          <mat-error
-            *ngIf="
+          <input matInput formControlName="PassingYear" placeholder="PassingYear" type="number" />
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i]
                 .get('PassingYear')
                 .hasError('required')
-            "
-          >
+            ">
             Passing Year is required.
           </mat-error>
-          <mat-error
-            *ngIf="
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i].get('PassingYear').errors
                 ?.maxlength
-            "
-          >
+            ">
             PassingYear must be 4 character
           </mat-error>
-          <mat-error
-            *ngIf="
+          <mat-error *ngIf="
               form.controls.Qualifications.controls[i].get('PassingYear').errors
-            "
-          >
+            ">
             Passing Year not greater than {{ currentYear }}.
           </mat-error>
         </mat-form-field>
         <div class="col">
           <ng-container *ngIf="!isFirst">
-            <i
-              class="fas fa-trash btn btn-danger p-2 m-2"
-              (click)="RemoveQualification(i)"
-            ></i>
+            <i class="fas fa-trash btn btn-danger p-2 m-2" (click)="RemoveQualification(i)"></i>
           </ng-container>
 
-          <i
-            class="fas fa-plus-square btn btn-primary p-2 m-2"
-            (click)="AddQualification()"
-            *ngIf="last"
-          ></i>
+          <i class="fas fa-plus-square btn btn-primary p-2 m-2" (click)="AddQualification()" *ngIf="last"></i>
         </div>
       </div>
     </div>
-    <button
-      *ngIf="!this.employeeId"
-      class="btn btn-primary mt-3"
-      (click)="onFormSubmit()"
-    >
+    <button *ngIf="!this.employeeId" class="btn btn-primary mt-3" (click)="onFormSubmit()">
       Submit
     </button>
 
-    <button
-      *ngIf="this.employeeId"
-      class="btn btn-primary"
-      (click)="onFormUpdate(this.employeeId)"
-    >
+    <button *ngIf="this.employeeId" class="btn btn-primary" (click)="onFormUpdate(this.employeeId)">
       Update
     </button>
   </form>

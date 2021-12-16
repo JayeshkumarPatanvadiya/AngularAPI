@@ -34,6 +34,9 @@ import { HighlightDirective } from './custom-directory/app-highlight.directive';
 import { environment } from './../environments/environment';
 import { UserRegComponent } from './user-reg/user-reg.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { MatTableModule } from '@angular/material/table';
+import { EmailconfirmationComponent } from './emailconfirmation/emailconfirmation.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {
@@ -42,7 +45,6 @@ const routes: Routes = [
   },
   {
     path: 'crud-operation',
-    canActivate: [AuthGuardService],
     component: EmployeelistComponent,
   },
   {
@@ -71,6 +73,10 @@ const routes: Routes = [
     component: SubjectFavouriteComponent,
   },
   {
+    path: 'emailconfirmation',
+    component: EmailconfirmationComponent,
+  },
+  {
     path: 'customers',
     loadChildren: () =>
       import('./customers/customers.module').then((m) => m.CustomersModule),
@@ -86,6 +92,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./employee/employee.module').then((m) => m.EmployeeModule),
   },
+
+
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
@@ -104,6 +112,7 @@ const routes: Routes = [
     HighlightDirective,
     UserRegComponent,
     UserLoginComponent,
+    EmailconfirmationComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,6 +127,8 @@ const routes: Routes = [
     MaterialModule,
     NgxSpinnerModule,
     CommonModule,
+    MatTableModule,
+    MatSnackBarModule
   ],
   exports: [RouterModule],
   providers: [
@@ -141,4 +152,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

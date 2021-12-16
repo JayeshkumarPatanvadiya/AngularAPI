@@ -36,23 +36,23 @@ export class EmployeeDataServiceService {
   }
 
   getData() {
-    return this.http.get('http://localhost/AngularAPIs/api/Workouts'); //https://localhost:44352/ webapi host url
+    return this.http.get(this.accessPointUrl); //https://localhost:44352/ webapi host url
   }
 
   postData(formData: any) {
     return this.http.post(
-      'http://localhost/AngularAPIs/api/Workouts',
+      this.accessPointUrl,
       formData
     );
   }
 
   putData(id: any, formData: any) {
     return this.http.put(
-      'http://localhost/AngularAPIs/api/Workouts/' + id,
+      this.accessPointUrl + '/' + id,
       formData
     );
   }
   deleteData(id: any) {
-    return this.http.delete('http://localhost/AngularAPIs/api/Workouts/' + id);
+    return this.http.delete(this.accessPointUrl + id);
   }
 }

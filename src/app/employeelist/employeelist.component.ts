@@ -40,7 +40,7 @@ export class EmployeelistComponent implements OnInit {
     private googleAuthDetailsService: GoogleAuthDetailsService,
     private socialAuthService: SocialAuthService,
     private SpinnerService: NgxSpinnerService
-  ) {}
+  ) { }
 
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
@@ -49,7 +49,7 @@ export class EmployeelistComponent implements OnInit {
   EventValue: any = 'Save';
   pageNumber: any;
   socialAuthDetails!: any;
-  
+
 
   ngOnInit(): void {
     this.SpinnerService.show();
@@ -184,7 +184,6 @@ export class EmployeelistComponent implements OnInit {
   }
 
   socialLogOut(): void {
-    alert('sign out');
     this.socialAuthService.signOut();
     localStorage.removeItem('currentUser');
     // this.router.navigate(['home']);

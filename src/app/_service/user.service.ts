@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { CustomEncoder } from './CustomEncoder';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,14 +12,14 @@ export class UserService {
     const headerSettings: { [name: string]: string | string[] } = {};
     this.header = new HttpHeaders(headerSettings);
   }
-  readonly BaseURI = 'https://localhost:44386/api/Authenticate';
+  readonly BaseURI = 'https://localhost:44354/api/Accounts';
 
   headerSettings: { [name: string]: string | string[] } = {};
 
   formModel = this.fb.group({
-    UserName: ['', Validators.required],
+    FirstName: ['', Validators.required],
     Email: ['', Validators.email],
-    FullName: [''],
+    LastName: [''],
     Passwords: this.fb.group(
       {
         Password: ['', [Validators.required, Validators.minLength(4)]],
@@ -30,9 +31,9 @@ export class UserService {
 
   register() {
     var body = {
-      UserName: this.formModel.value.UserName,
+      FirstName: this.formModel.value.FirstName,
       Email: this.formModel.value.Email,
-      FullName: this.formModel.value.FullName,
+      LastName: this.formModel.value.LastName,
       Password: this.formModel.value.Passwords.Password,
     };
     return this.http.post(this.BaseURI + '/register', body);
@@ -40,10 +41,9 @@ export class UserService {
 
   Login(model: any) {
     // debugger;
-    console.log(model);
     var a = this.BaseURI + '/login';
     var body = {
-      UserName: this.formModel.value.UserName,
+      Email: this.formModel.value.Email,
       Password: this.formModel.value.Passwords.Password,
     };
     console.log(body);
@@ -51,4 +51,18 @@ export class UserService {
       headers: this.header,
     });
   }
+  GetAllUsers() {
+    return this.http.get<any>(this.BaseURI);
+  }
+  verifyEmail(token: any, email: any,) {
+    let params = new HttpParams({ encoder: new CustomEncoder() })
+    params = params.append('token', token);
+    params = params.append('email', email);
+    console.log(token + email)     // not used 
+    return this.http.post<any>(this.BaseURI + '/EmailConfirmation', token + email, {
+      params: params,
+      headers: this.header,
+    });
+  }
+
 }

@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./user-reg.component.css'],
 })
 export class UserRegComponent implements OnInit {
-  constructor(public service: UserService, private toastr: ToastrService) {}
+  constructor(public service: UserService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.service.formModel.reset();
@@ -18,34 +18,38 @@ export class UserRegComponent implements OnInit {
       this.service.register().subscribe(
         (res: any) => {
           console.log(res);
-          if (res.status == 'Success') {
+          if (res.status === 200) {
             this.service.formModel.reset();
             this.toastr.success(
               'New user created!',
               'Registration successful.'
             );
-          } else {
-            res.errors.forEach((element: any) => {
-              switch (element.code) {
-                case 'DuplicateUserName':
-                  this.toastr.error(
-                    'Username is already taken',
-                    'Registration failed.'
-                  );
-                  break;
-
-                default:
-                  this.toastr.error(
-                    element.description,
-                    'Registration failed.'
-                  );
-                  break;
-              }
-            });
           }
         },
-        (err) => {
-          console.log(err);
+        (error) => {
+          console.log(error);
+          // iterate over each key in the key / value pair.
+          if (error.status === 200) {
+            for (var key in error.error) {
+              // iterate over each element in the data[key] array of validation messages
+              this.service.formModel.reset();
+              this.toastr.success(
+                'New user created!',
+                'please check your mailbox for confirm email id.'
+              );
+            }
+          }
+          if (error.status === 400) {
+            for (var key in error.error) {
+              // iterate over each element in the data[key] array of validation messages
+              this.toastr.error(
+                error.error[key],
+                'Registration failed.'
+              );
+            }
+          }
+
+
         }
       );
     } else {
